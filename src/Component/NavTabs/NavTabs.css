@@ -1,0 +1,24 @@
+.navLink {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.nav-item {
+    /* border-bottom: 3px solid #ebe7e4; */
+    font-family: 'Amita';
+    font-weight: 700;
+    letter-spacing: '.2rem';
+    color: #ece7e2;
+    text-decoration: "none";
+}
+
+.nav-item :hover{
+    border-bottom: 3px solid #dd6800;
+    color: #DD6800;
+}
+
+/* .css-6hp17o-MuiList-root-MuiMenu-list{
+    background-color: black;
+    color:#DD6800 ;
+} */
