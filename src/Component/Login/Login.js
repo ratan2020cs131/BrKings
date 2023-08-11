@@ -62,7 +62,7 @@ const Login = () => {
                 alt='Cookie'
               />
             </div>
-          </div>-
+          </div>
         </div>
       </div>
     </>
