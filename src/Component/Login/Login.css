@@ -27,7 +27,7 @@
 
 .bgimage {
     background: linear-gradient(90.44deg, #c96b19 0.27%, #b45502 31.19%, #000000 87.28%);
-    width: 50%;
+    width: fit-content;
     height: fit-content;
     max-height: 140%;
     box-sizing: border-box;
@@ -75,13 +75,11 @@
 
 
 .card {
-    margin-bottom: 4px;
-    padding: 10px;
-    position: relative;
+    margin: 4px;
+    padding: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap-reverse;
 }
 
 

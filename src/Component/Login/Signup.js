@@ -18,10 +18,10 @@ const Signup = () => {
                             alt="Brownie King"
                         />
                         <h2 className='brownie text-center text-rose-550 '>Brownie King</h2>
-                        <h2 className="mt-3 text-center text-2xl font-bold leading-9  text-gey-950">
-                            Create New account
-                        </h2>
                     </div>
+                    <h2 className="mt-3 text-center text-2xl font-bold leading-9  text-gey-950">
+                        Create New account
+                    </h2>
                     <div className='card flex-row'>
                         <div className="mt-7 sm:mx-auto  sm:max-w-sm cred">
                             <form className='loginForm'>
@@ -56,7 +56,7 @@ const Signup = () => {
                                 </Link>
                             </p>
                         </div>
-                        <div className='cookie'>
+                        <div className='cookie hidden md:block'>
                             <img
                                 src={Cookie}
                                 alt='Cookie'

@@ -14,13 +14,23 @@ import Stack from '@mui/material/Stack';
 import Styles from "../Component/Global.module.css";
 import NavTabs from "../Component/NavTabs/NavTabs";
 import "../Component/NavTabs/NavTabs.css"
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
+import Login from '../Component/Login/Login';
+import Signup from '../Component/Login/Signup';
+import Button from '@mui/material/Button';
+import '../Component/NavTabs/NavTabs.css'
 
 const pages = ['Brownies', 'Track Order', 'Get in Touch', 'about us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
 
+    const [isLogged, setLogged] = React.useState(true);
+
+    const loginHandeler = () => {
+        setLogged(false)
+    }
+    
     const [value, setValue] = React.useState('one');
 
     const handleChange = (event, newValue) => {
@@ -46,89 +56,90 @@ const Navbar = () => {
     };
 
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl" sx={{ backgroundColor: "black" }}>
-                <Toolbar disableGutters>
-                    <Stack className={Styles.logo} spacing={-2} sx={{ minWidth: 0, display: { xs: "none", md: "flex" }, mr: 1 }}>
-                        <img src={Logo} alt='Brownie King' />
+        <>
+            <AppBar position="static">
+                <Container maxWidth="xl" sx={{ backgroundColor: "black" }}>
+                    <Toolbar disableGutters>
+                        <Stack className={Styles.logo} spacing={-2} sx={{ minWidth: 0, display: { xs: "none", md: "flex" }, mr: 1 }}>
+                            <img src={Logo} alt='Brownie King' />
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="a"
+                                href="/"
+                                sx={{
+                                    mr: 2,
+                                    display: { xs: "none", md: "flex" },
+                                    fontFamily: 'Amita',
+                                    fontWeight: 700,
+                                    letterSpacing: '.2rem',
+                                    color: '#dd6800',
+                                    textDecoration: "none"
+                                }}
+                            >
+                                Brownie King
+                            </Typography>
+                        </Stack>
+
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElNav}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchorElNav)}
+                                onClose={handleCloseNavMenu}
+                                sx={{
+                                    display: { xs: 'block', md: 'none' },
+                                }}
+                            >
+                                {pages.map((page) => (
+                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">{page}</Typography>
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                        <Box className={Styles.logo} sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} >
+                            <img src={Logo} alt='Brownie King' />
+                        </Box>
                         <Typography
-                            variant="h6"
+                            variant="h5"
                             noWrap
                             component="a"
-                            href="/"
+                            href=""
                             sx={{
-                                mr: 2,
-                                display: { xs: "none", md: "flex" },
+                                pr: 2,
+                                display: { xs: 'flex', md: 'none' },
+                                flexGrow: 1,
                                 fontFamily: 'Amita',
                                 fontWeight: 700,
-                                letterSpacing: '.2rem',
+                                letterSpacing: '.1rem',
                                 color: '#dd6800',
-                                textDecoration: "none"
+                                textDecoration: 'none',
                             }}
                         >
                             Brownie King
                         </Typography>
-                    </Stack>
-
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    <Box className={Styles.logo} sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} >
-                        <img src={Logo} alt='Brownie King' />
-                    </Box>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                            pr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'Amita',
-                            fontWeight: 700,
-                            letterSpacing: '.1rem',
-                            color: '#dd6800',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        Brownie King
-                    </Typography>
-                    <Stack sx={{ flexGrow: 1, backgroundColor: "black", display: { xs: 'none', md: 'flex' } }}>
-                        {/* {pages.map((page) => (
+                        <Stack sx={{ flexGrow: 1, backgroundColor: "black", display: { xs: 'none', md: 'flex' } }}>
+                            {/* {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
@@ -137,11 +148,11 @@ const Navbar = () => {
                                 {page}
                             </Button>
                         ))} */}
-                        <NavTabs />
-                    </Stack>
+                            <NavTabs />
+                        </Stack>
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        {/* <Tooltip title="Open settings">
+                        <Box sx={{ flexGrow: 0 }}>
+                            {/* <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                             </IconButton>
@@ -168,15 +179,23 @@ const Navbar = () => {
                                 </MenuItem>
                             ))}
                         </Menu> */}
-                        <NavLink to="/Cart">
-                            <IconButton color="primary" sx={{ color: '#dd6800' }} aria-label="add to shopping cart">
-                                <AddShoppingCartIcon />
-                            </IconButton>
-                        </NavLink>
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
+                            <Button id='login' variant="outlined" sx={{ color: '#dd6800' }} onClick={()=>loginHandeler()} >
+                                Login
+                            </Button>
+
+                            <NavLink to="/Cart">
+                                <IconButton color="primary" sx={{ color: '#dd6800' }} aria-label="add to shopping cart">
+                                    <AddShoppingCartIcon />
+                                </IconButton>
+                            </NavLink>
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+            {
+                isLogged ? <></> : <Login />
+            }
+        </>
     );
 }
 

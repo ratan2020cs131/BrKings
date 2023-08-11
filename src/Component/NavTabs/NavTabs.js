@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import { NavLink } from 'react-router-dom'
-import './NavTabs.css';
+
 
 const NavTabs = () => {
+
 
     return (
         <>
@@ -28,11 +28,7 @@ const NavTabs = () => {
                     <div className="nav-item">
                         <NavLink className="nav-link" to="/contact">about Us</NavLink>
                     </div>
-
-                    <Button variant="outlined" sx={{color: '#dd6800'}}  >
-                        Login
-                    </Button>
-
+                    
                 </div>
             </nav>
         </>
