@@ -5,12 +5,15 @@ import { Link } from 'react-router-dom';
 import CancelIcon from '@mui/icons-material/Cancel';
 import "./Login.css";
 
-const Signup = () => {
+const Signup = ({ setSign, setLogged }) => {
+
     return (
         <>
             <div className='flex min-h-full justify-center my-7 h-screen main'>
                 <div className="flex flex-col justify-center  bgimage">
-                    <CancelIcon className='closeBtn' />
+                    <button onClick={()=>{setSign(false)}}>
+                        <CancelIcon className='closeBtn' />
+                    </button>
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm logo">
                         <img
                             className="mx-auto h-25 w-auto"
@@ -30,7 +33,7 @@ const Signup = () => {
                                     <input type='text' id='name' name='name' />
                                 </label>
                                 <label for='email' className='loginInput'>
-                                    Email
+                                    Email3.6.
                                     <input type='email' id='email' name='email' />
                                 </label>
                                 <label for='password' className='loginInput'>
@@ -49,7 +52,10 @@ const Signup = () => {
 
                             <p className="mt-5 text-center text-sm text-gray-900">
                                 Already a member?{' '}
-                                <Link to='/Login'>
+                                <Link onClick={()=>{
+                                    setLogged(true)
+                                    setSign(false)
+                                    }}>
                                     <a className="font-semibold leading-6 text-rose-950 hover:text-amber-500">
                                         Signin
                                     </a>

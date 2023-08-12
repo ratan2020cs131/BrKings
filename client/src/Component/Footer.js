@@ -87,7 +87,7 @@ const Footer = () => {
               </svg>
             </a>
           </div>
-          <div className="mt-4 text-4xl flex flex-col gap-3 lg:flex-row lg:text-9xl leading-6 text-center text-white ft-name">
+          <div className="mt-4 text-4xl flex flex-col gap-3 lg:flex-row lg:text-9xl lg:justify-center leading-6 text-center text-white ft-name">
             <span>Brownie</span> 
             <span>King</span>
           </div>

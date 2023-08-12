@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Logo from '../../Images/BrownieKing.png';
 import Cookie from '../../Images/brauni-ai (1) 1.png';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import CancelIcon from '@mui/icons-material/Cancel';
 import "./Login.css";
 
-const Login = () => {
 
-  const [close,setclose] = useState(false);
-  const navigation = useNavigate();
+
+const Login = ({setSign , setLogged}) => {
+
 
   return (
     <>
       <div className='flex justify-center main'>
         <div className="flex flex-col justify-center  flex-wrap bgimage">
-          <button>
+          <button onClick={()=>{setLogged(false)}}>
             <CancelIcon className='closeBtn' />
           </button>
           <div className="logo">
@@ -47,7 +46,10 @@ const Login = () => {
               </form>
               <p className="mt-8 text-center text-sm text-gray-900">
                 Not a member?{' '}
-                <Link>
+                <Link onClick={()=>{
+                  setSign(true)
+                  setLogged(false)
+                }}>
                   {console.log("signup")}
                   <a className="font-semibold leading-6 text-rose-950 hover:text-amber-500">
                     Signup
