@@ -14,9 +14,9 @@ import Stack from '@mui/material/Stack';
 import Styles from "../Component/Global.module.css";
 import NavTabs from "../Component/NavTabs/NavTabs";
 import "../Component/NavTabs/NavTabs.css"
-import { NavLink, Outlet } from 'react-router-dom';
-import Login from '../Component/Login/Login';
+import { NavLink } from 'react-router-dom';
 import Signup from '../Component/Login/Signup';
+import Login from '../Component/Login/Login';
 import Button from '@mui/material/Button';
 import '../Component/NavTabs/NavTabs.css'
 
@@ -25,12 +25,9 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
 
-    const [isLogged, setLogged] = React.useState(true);
+    const [openLogged, setLogged] = React.useState(false);
+    const [openSign, setSign] = React.useState(false);
 
-    const loginHandeler = () => {
-        setLogged(false)
-    }
-    
     const [value, setValue] = React.useState('one');
 
     const handleChange = (event, newValue) => {
@@ -179,9 +176,11 @@ const Navbar = () => {
                                 </MenuItem>
                             ))}
                         </Menu> */}
-                            <Button id='login' variant="outlined" sx={{ color: '#dd6800' }} onClick={()=>loginHandeler()} >
+
+                            <Button id='login' variant="outlined" sx={{ color: '#dd6800' }} onClick={() => {setLogged(true)}} >
                                 Login
                             </Button>
+
 
                             <NavLink to="/Cart">
                                 <IconButton color="primary" sx={{ color: '#dd6800' }} aria-label="add to shopping cart">
@@ -192,9 +191,8 @@ const Navbar = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            {
-                isLogged ? <></> : <Login />
-            }
+            {openLogged?<Login setSign={setSign} setLogged={setLogged} />:null}
+            {openSign?<Signup setSign={setSign} setLogged={setLogged} />:null}
         </>
     );
 }

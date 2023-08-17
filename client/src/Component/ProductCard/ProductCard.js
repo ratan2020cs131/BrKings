@@ -18,10 +18,10 @@ const ProductCard = () => {
             <div className="font2 text-white flex flex-col lg:flex-row max-w-sm lg:mx-2 my-4 gap-1">
               <div className=" gap-1 lg:w-2/3">
                 <h1>Double Chocolate Delight With A Taste of Walnut Crunch</h1>
-                <scan className="mt-2">₹200</scan>
               </div>
               <div className="flex flex-col justify-center lg:w-1/3 gap-3">
                 <div className="flex justify-center items-center flex-col">
+                  <scan>₹200</scan>
                   <h1 className="flex flex-row gap-2 justify-center items-center">
                     Eggless <img src={Veg} alt="Veg" />
                   </h1>
@@ -43,10 +43,10 @@ const ProductCard = () => {
             <div className="font2 text-white flex flex-col lg:flex-row max-w-sm lg:mx-2 my-4 gap-1">
               <div className=" gap-1 lg:w-2/3">
                 <h1>Double Chocolate Delight With A Taste of Walnut Crunch</h1>
-                <scan className="mt-2">₹200</scan>
               </div>
               <div className="flex flex-col justify-center lg:w-1/3 gap-3">
                 <div className="flex justify-center items-center flex-col">
+                  <scan>₹200</scan>
                   <h1 className="flex flex-row gap-2 justify-center items-center">
                     Eggless <img src={Veg} alt="Veg" />
                   </h1>
@@ -68,10 +68,10 @@ const ProductCard = () => {
             <div className="font2 text-white flex flex-col lg:flex-row max-w-sm lg:mx-2 my-4 gap-1">
               <div className=" gap-1 lg:w-2/3">
                 <h1>Double Chocolate Delight With A Taste of Walnut Crunch</h1>
-                <scan className="mt-2">₹200</scan>
+                <scan>₹200</scan>
               </div>
               <div className="flex flex-col justify-center lg:w-1/3 gap-3">
-                <div className="flex justify-center items-center flex-col">
+                <div className="flex justify-center items-center">
                   <h1 className="flex flex-row gap-2 justify-center items-center">
                     Eggless <img src={Veg} alt="Veg" />
                   </h1>

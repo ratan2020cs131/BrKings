@@ -9,12 +9,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     z-index: 9999;
     margin: 0px;
     background-color: rgb(193, 192, 190, 0.3);
+    backdrop-filter: blur(2px);
 }
 
 .closeBtn {
