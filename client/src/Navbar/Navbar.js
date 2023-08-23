@@ -54,89 +54,93 @@ const Navbar = () => {
 
     return (
         <>
-            <AppBar position="static">
-                <Container maxWidth="xl" sx={{ backgroundColor: "black" }}>
-                    <Toolbar disableGutters>
-                        <Stack className={Styles.logo} spacing={-2} sx={{ minWidth: 0, display: { xs: "none", md: "flex" }, mr: 1 }}>
-                            <img src={Logo} alt='Brownie King' />
-                            <Typography
-                                variant="h6"
-                                noWrap
-                                component="a"
-                                href="/"
-                                sx={{
-                                    mr: 2,
-                                    display: { xs: "none", md: "flex" },
-                                    fontFamily: 'Amita',
-                                    fontWeight: 700,
-                                    letterSpacing: '.2rem',
-                                    color: '#dd6800',
-                                    textDecoration: "none"
-                                }}
-                            >
-                                Brownie King
-                            </Typography>
-                        </Stack>
+            <div className="navBar">
+                <AppBar position="static">
+                    <Container maxWidth="2xl" sx={{ backgroundColor: "black" }}>
+                        <Toolbar disableGutters>
+                            <NavLink to='/'>
+                                <Stack className={Styles.logo} spacing={-2} sx={{ minWidth: 0, display: { xs: "none", md: "flex" }, mr: 1 }}>
+                                    <img src={Logo} alt='Brownie King' />
+                                    <Typography
+                                        variant="h6"
+                                        noWrap
+                                        component="a"
+                                        href="/"
+                                        sx={{
+                                            mr: 2,
+                                            display: { xs: "none", md: "flex" },
+                                            fontFamily: 'Amita',
+                                            fontWeight: 700,
+                                            letterSpacing: '.2rem',
+                                            color: '#dd6800',
+                                            textDecoration: "none"
+                                        }}
+                                    >
+                                        Brownie King
+                                    </Typography>
+                                </Stack>
+                            </NavLink>
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
-                                color="inherit"
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorElNav}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'left',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'left',
-                                }}
-                                open={Boolean(anchorElNav)}
-                                onClose={handleCloseNavMenu}
-                                sx={{
-                                    display: { xs: 'block', md: 'none' },
-                                }}
-                            >
-                                {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
-                        <Box className={Styles.logo} sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} >
-                            <img src={Logo} alt='Brownie King' />
-                        </Box>
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component="a"
-                            href=""
-                            sx={{
-                                pr: 2,
-                                display: { xs: 'flex', md: 'none' },
-                                flexGrow: 1,
-                                fontFamily: 'Amita',
-                                fontWeight: 700,
-                                letterSpacing: '.1rem',
-                                color: '#dd6800',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            Brownie King
-                        </Typography>
-                        <Stack sx={{ flexGrow: 1, backgroundColor: "black", display: { xs: 'none', md: 'flex' } }}>
-                            {/* {pages.map((page) => (
+                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                                <IconButton
+                                    size="medium"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleOpenNavMenu}
+                                    color="inherit"
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorElNav}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'left',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'left',
+                                    }}
+                                    open={Boolean(anchorElNav)}
+                                    onClose={handleCloseNavMenu}
+                                    sx={{
+                                        display: { xs: 'block', md: 'none' },
+                                    }}
+                                >
+                                    {pages.map((page) => (
+                                        <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                            <Typography textAlign="center">{page}</Typography>
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            </Box>
+                            {/* <NavLink to='/'> */}
+                                <Box className={Styles.logo} sx={{ display: { xs: 'flex', md: 'none' }, mr: 0 }} >
+                                    <img src={Logo} alt='Brownie King' />
+                                </Box>
+                                <Typography
+                                    variant="h6"
+                                    Wrap
+                                    component="a"
+                                    href=""
+                                    sx={{
+                                        mr: 1,
+                                        display: { xs: 'flex', md: 'none' },
+                                        flexGrow: 1,
+                                        fontFamily: 'Amita',
+                                        fontWeight: 700,
+                                        color: '#dd6800',
+                                        textDecoration: 'none',
+                                    }}
+                                >
+                                    Brownie King
+                                </Typography>
+                            {/* </NavLink> */}
+                            <Stack sx={{ flexGrow: 1, backgroundColor: "black", display: { xs: 'none', md: 'flex' } }}>
+                                {/* {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
@@ -145,54 +149,27 @@ const Navbar = () => {
                                 {page}
                             </Button>
                         ))} */}
-                            <NavTabs />
-                        </Stack>
+                                <NavTabs />
+                            </Stack>
 
-                        <Box sx={{ flexGrow: 0 }}>
-                            {/* <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu> */}
-
-                            <Button id='login' variant="outlined" sx={{ color: '#dd6800' }} onClick={() => {setLogged(true)}} >
-                                Login
-                            </Button>
+                            <div className=' lg:mx-4'>
+                                <Button variant="outlined" sx={{ color: '#dd6800' }} onClick={() => { setLogged(true) }} >
+                                    Login
+                                </Button>
+                            </div>
 
 
-                            <NavLink to="/Cart">
+                            <NavLink className='mx-0' to="/Cart">
                                 <IconButton color="primary" sx={{ color: '#dd6800' }} aria-label="add to shopping cart">
                                     <AddShoppingCartIcon />
                                 </IconButton>
                             </NavLink>
-                        </Box>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-            {openLogged?<Login setSign={setSign} setLogged={setLogged} />:null}
-            {openSign?<Signup setSign={setSign} setLogged={setLogged} />:null}
+                        </Toolbar>
+                    </Container>
+                </AppBar>
+                {openLogged ? <Login setSign={setSign} setLogged={setLogged} /> : null}
+                {openSign ? <Signup setSign={setSign} setLogged={setLogged} /> : null}
+            </div>
         </>
     );
 }

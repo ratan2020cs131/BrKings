@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from '../../Images/BrownieKing.png';
 import Cookie from '../../Images/brauni-ai (1) 1.png';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,16 @@ import "./Login.css";
 
 const Login = ({setSign , setLogged}) => {
 
+  const [user,setUser] = useState({
+    email:'', password:''
+  })
+
+  let name,value;
+  const loginInputs = (e) =>{
+    name = e.target.name;
+    value = e.target.value;
+    setUser({...user,[name]:value});
+  }
 
   return (
     <>
@@ -33,11 +43,11 @@ const Login = ({setSign , setLogged}) => {
               <form className='loginForm'>
                 <label for='email' className='loginInput'>
                   Email
-                  <input type='email' placeholder='Email' id='email' name='email' />
+                  <input type='email' placeholder='Email' value={user.email} onChange={ loginInputs} id='email' name='email' />
                 </label>
                 <label for='password' className='loginInput'>
                   Password
-                  <input type='password' placeholder='Password' id='password' name='password' />
+                  <input type='password' placeholder='Password' value={user.password} onChange={loginInputs} id='password' name='password' />
                 </label>
                 <button id='submit' class=" mt-4 rounded-md bg-rose-950 max-w-xl w-24 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   Login

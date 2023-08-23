@@ -9,9 +9,6 @@ const NavTabs = () => {
         <>
             <nav className="">
                 <div className="navLink text-2xl">
-                    {/* <div className="nav-item">
-                        <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
-                    </div> */}
 
                     <div className="nav-item">
                         <NavLink className="nav-link" aria-current="page" to="/brownies">Brownies</NavLink>

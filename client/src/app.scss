@@ -29,3 +29,13 @@
     font-family: 'Bungee Outline', cursive;
     letter-spacing: 1rem;
   }
+
+  .active{
+    border-bottom: 3px solid #dd6800;
+    color: #DD6800;
+  }
+
+  .hov:hover{
+    transition: 0.3s;
+    padding: 5px;
+  }

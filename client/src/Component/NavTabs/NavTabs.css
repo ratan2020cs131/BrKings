@@ -16,11 +16,9 @@
 .nav-item :hover{
     border-bottom: 3px solid #dd6800;
     color: #DD6800;
+    transition: 0.4s;
 }
 
-#login{
-    margin: 0 14px;
-}
 
 /* .css-6hp17o-MuiList-root-MuiMenu-list{
     background-color: black;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from '../../Images/BrownieKing.png';
 import Cookie from '../../Images/brauni-ai (1) 1.png';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,18 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import "./Login.css";
 
 const Signup = ({ setSign, setLogged }) => {
+
+    const[user,setuser] = useState({
+        name:'', email:'', phone:'', password:'', address:''
+    });
+
+    let name,value;
+    const loginInputs = (e) => {
+        name = e.target.name;
+        value = e.target.value;
+        // console.log(name,"-",value);
+        setuser({...user,[name]:value});
+    };
 
     return (
         <>
@@ -26,23 +38,39 @@ const Signup = ({ setSign, setLogged }) => {
                         Create New account
                     </h2>
                     <div className='card flex-row'>
-                        <div className="mt-7 sm:mx-auto  sm:max-w-sm cred">
+                        <div className=" sm:mx-auto  sm:max-w-sm cred">
                             <form className='loginForm'>
                                 <label for='name' className='loginInput'>
                                     Name
-                                    <input type='text' id='name' name='name' />
+                                    <input 
+                                    placeholder='Name' 
+                                    type='text' value={user.name} 
+                                    onChange={ loginInputs} 
+                                    id='name' name='name' />
                                 </label>
                                 <label for='email' className='loginInput'>
-                                    Email3.6.
-                                    <input type='email' id='email' name='email' />
+                                    Email
+                                    <input 
+                                    placeholder='Email' 
+                                    type='email' value={user.email} 
+                                    onChange={ loginInputs} 
+                                    id='email' name='email' />
                                 </label>
                                 <label for='password' className='loginInput'>
                                     Password
-                                    <input type='password' id='password' name='password' />
+                                    <input 
+                                    placeholder='Password' 
+                                    type='password' value={user.password} 
+                                    onChange={ loginInputs} 
+                                    id='password' name='password' />
                                 </label>
-                                <label for='confirm_password' className='loginInput'>
-                                    Confirm Password
-                                    <input type='password' id='confirm_password' name='confirm_password' />
+                                <label for='address' className='loginInput'>
+                                    Address
+                                    <input 
+                                    placeholder='Address' 
+                                    type='text' value={user.address} 
+                                    onChange={ loginInputs} 
+                                    id='address' name='address' />
                                 </label>
                                 <button id='submit' class=" mt-4 rounded-md bg-rose-950 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                     Register
@@ -50,7 +78,7 @@ const Signup = ({ setSign, setLogged }) => {
 
                             </form>
 
-                            <p className="mt-5 text-center text-sm text-gray-900">
+                            <p className="mt-2 text-center text-sm text-gray-900">
                                 Already a member?{' '}
                                 <Link onClick={()=>{
                                     setLogged(true)

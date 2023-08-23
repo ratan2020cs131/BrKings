@@ -7,6 +7,7 @@ import Cart from "./Component/Cart/Cart";
 import Error from "./Component/Error";
 import Footer from "./Component/Footer";
 import ProductPage from "./Component/Product/ProductPage";
+import Api from "./API/Api";
 
 const Routing = () => {
 
@@ -16,6 +17,7 @@ const Routing = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="*" element={<Error />} />
+        <Route path="/api" element={<Api />} />
         <Route path="ProductPage" element={<ProductPage />} />
         {/* <Route path="/Navbar" element = {<Navbar/>} /> */}
       </Routes>

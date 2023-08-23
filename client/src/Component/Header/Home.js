@@ -2,6 +2,8 @@ import { useEffect, useState, React } from 'react'
 import HeroImage from '../../Images/brauni-ai (1) 1.png';
 import "./Home.scss";
 import ProductCard from '../ProductCard/ProductCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { getItems } from '../../Redux/Slices/itemSlice';
 
 
 
@@ -13,6 +15,9 @@ const fetchProducts = () => {
         { id: 1, name: 'Product 1', price: 19.99 },
         { id: 2, name: 'Product 2', price: 29.99 },
         { id: 3, name: 'Product 3', price: 39.99 },
+        { id: 4, name: 'Product 4', price: 39.99 },
+        { id: 5, name: 'Product 5', price: 39.99 },
+        { id: 6, name: 'Product 6', price: 39.99 },
         // Add more products here
       ]);
     }, 1500); // Simulating a delay of 1.5 seconds
@@ -24,11 +29,17 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
+  // const {products,loader} = useSelector((state) => state.item);
+  // const dispatch = useDispatch();
+  // console.log(products);
+
   useEffect(() => {
     fetchProducts().then((data) => {
       setProducts(data);
       setLoading(false);
     });
+    // dispatch(getItems);
+    // setLoading(false);
   }, []);
 
   return (
@@ -42,7 +53,7 @@ const Home = () => {
               Indulge in the royal decadance of Brownie King's heavenly creation
             </p>
           </div>
-          <div className="w-1/3 max-w-4xl">
+          <div className="w-1/3 imgBox">
             <img src={HeroImage} alt="Imgae" className='w-full h-full object-cover' />
           </div>
         </div>
@@ -51,16 +62,16 @@ const Home = () => {
           {loading ? (
             <div className="text-center">Loading...</div>
           ) : (
-            <div className="grid gap-4">
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-2 my-3'>
               {products.map((product) => (
-                <div key={product.id} className="border p-4 rounded-lg shadow-md">
-                  <h2 className="text-xl font-bold">{product.name}</h2>
-                  <p className="text-gray-600">{`$${product.price.toFixed(2)}`}</p>
+                <div key={product.id}>
+                  {/* <h2 className="text-xl font-bold">{product.name}</h2>
+                  <p className="text-gray-600">{`$${product.price.toFixed(2)}`}</p> */}
+                  <ProductCard name={product.name} price={product.price} />
                 </div>
               ))}
             </div>
           )}
-          <ProductCard />
         </div>
       </div>
     </>
