@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../Images/BrownieKing.png";
 import Cookie from "../../Images/brauni-ai (1) 1.png";
 import { Link } from "react-router-dom";
@@ -6,6 +6,22 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
 
 const Signup = ({ setSign, setLogged }) => {
+  const [user, setuser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    address: "",
+  });
+
+  let name, value;
+  const loginInputs = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    // console.log(name,"-",value);
+    setuser({ ...user, [name]: value });
+  };
+
   return (
     <>
       <div className="flex min-h-full justify-center my-7 h-screen main">
@@ -29,26 +45,50 @@ const Signup = ({ setSign, setLogged }) => {
             Create New account
           </h2>
           <div className="card flex-row">
-            <div className="mt-7 sm:mx-auto  sm:max-w-sm cred">
+            <div className=" sm:mx-auto  sm:max-w-sm cred">
               <form className="loginForm">
                 <label for="name" className="loginInput">
                   Name
-                  <input type="text" id="name" name="name" />
+                  <input
+                    placeholder="Name"
+                    type="text"
+                    value={user.name}
+                    onChange={loginInputs}
+                    id="name"
+                    name="name"
+                  />
                 </label>
                 <label for="email" className="loginInput">
                   Email
-                  <input type="email" id="email" name="email" />
+                  <input
+                    placeholder="Email"
+                    type="email"
+                    value={user.email}
+                    onChange={loginInputs}
+                    id="email"
+                    name="email"
+                  />
                 </label>
                 <label for="password" className="loginInput">
                   Password
-                  <input type="password" id="password" name="password" />
-                </label>
-                <label for="confirm_password" className="loginInput">
-                  Confirm Password
                   <input
+                    placeholder="Password"
                     type="password"
-                    id="confirm_password"
-                    name="confirm_password"
+                    value={user.password}
+                    onChange={loginInputs}
+                    id="password"
+                    name="password"
+                  />
+                </label>
+                <label for="address" className="loginInput">
+                  Address
+                  <input
+                    placeholder="Address"
+                    type="text"
+                    value={user.address}
+                    onChange={loginInputs}
+                    id="address"
+                    name="address"
                   />
                 </label>
                 <button
@@ -59,7 +99,7 @@ const Signup = ({ setSign, setLogged }) => {
                 </button>
               </form>
 
-              <p className="mt-5 text-center text-sm text-gray-900">
+              <p className="mt-2 text-center text-sm text-gray-900">
                 Already a member?{" "}
                 <Link
                   onClick={() => {

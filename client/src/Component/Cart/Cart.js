@@ -49,7 +49,7 @@ const ShoppingCart = () => {
                     <h2>Your Cart is Empty</h2>
                     <p>Looks like you haven't made any choice yet</p>
                     <button type="button" className="mt-4 rounded-md bg-rose-950 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={() => navigation("")}>Back to Home Page</button>
+                        onClick={() => navigation("/")}>Back to Home Page</button>
                 </div>
             </div>
         )
@@ -85,8 +85,16 @@ const ShoppingCart = () => {
                     </ul>
                 </div>
                 <div className='flex flex-row mt-3 justify-center'>
-                    <button className=" rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/3">Continue shopping</button>
-                    <button className=" rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/3">Checkout</button>
+                    <button
+                        className=" rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/3"
+                        onClick={() => navigation("/")}>
+                        Continue shopping
+                    </button>
+                    <button
+                        className=" rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/3"
+                        onClick={() => navigation("")}>
+                        Checkout
+                    </button>
                     <div className=" cart-total text-4xl font">Total: ₹{totalAmount}</div>
                 </div>
             </div>

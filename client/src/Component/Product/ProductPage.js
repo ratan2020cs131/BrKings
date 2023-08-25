@@ -37,9 +37,12 @@ const ProductPage = () => {
             <div className='flex flex-col gap-2 max-w-screen-md mt-4'>
               <span className='font my-2 text-white'>Size:</span>
               <div className='grid grid-cols-2 justify-items-streach px-3 lg:max-w-lg gap-2 h-48'>
-                <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>4 Brownies</button>
-                <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>8 Brownies</button>
-                <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>16 Brownies</button>
+                <select>
+                  <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>4 Brownies</button>
+                  <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>8 Brownies</button>
+                  <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>16 Brownies</button>
+                </select>
+
               </div>
               <button className='mt-3 rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/2'>Add to Cart</button>
               <p className='font text-white lg:text-2xl lg:mt-6 my-3 lg:px-4'>Ciao I'm the brownie that's ultra chocolatey sandwiched with Crunchy Maltesers .

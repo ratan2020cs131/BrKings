@@ -10,12 +10,12 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 0px;
+  top: 1px;
   left: 0px;
   z-index: 9999;
   margin: 0px;
   background-color: rgb(193, 192, 190, 0.3);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
 }
 
 .closeBtn {
@@ -35,7 +35,7 @@
   );
   width: fit-content;
   height: fit-content;
-  max-height: 100%;
+  /* max-height: 100%; */
   box-sizing: border-box;
   /* border: 2px solid chocolate; */
   border-radius: 7px;
@@ -75,11 +75,9 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 10px;
 }
 
 .card {
-  margin: 4px;
   padding: 12px;
   display: flex;
   justify-content: center;
@@ -87,7 +85,6 @@
 }
 
 .cred {
-  margin: -4px;
   width: 310px;
   height: 90%;
   min-width: 200px;
@@ -107,7 +104,6 @@
 }
 
 .cookie {
-  margin: -18px;
   width: 350px;
   height: 100%;
 }
