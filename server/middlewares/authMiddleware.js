@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import userModel from "../models/userModel.js";
 
 export const requireSignIn = async (req, res, next) => {
   try {
@@ -6,6 +7,7 @@ export const requireSignIn = async (req, res, next) => {
       req.headers.authorization,
       process.env.jwt_secret
     );
+    req.user = decode;
     next();
   } catch (error) {
     console.log(error);
@@ -20,8 +22,15 @@ export const isAdmin = async (req, res, next) => {
         success: false,
         message: "Unauthorized Access",
       });
+    } else {
+      next();
     }
   } catch (error) {
     console.log(error);
+    res.status(401).send({
+      success: false,
+      message: "Error in admin middleware",
+      error,
+    });
   }
 };
