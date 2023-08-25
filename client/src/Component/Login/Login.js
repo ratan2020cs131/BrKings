@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Logo from '../../Images/BrownieKing.png';
 import Cookie from '../../Images/brauni-ai (1) 1.png';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import CancelIcon from '@mui/icons-material/Cancel';
 import "./Login.css";
 
@@ -9,6 +9,7 @@ import "./Login.css";
 
 const Login = ({setSign , setLogged}) => {
 
+  const navigate =useNavigate();
   const [user,setUser] = useState({
     email:'', password:''
   })
@@ -52,7 +53,10 @@ const Login = ({setSign , setLogged}) => {
                 <button id='submit' class=" mt-4 rounded-md bg-rose-950 max-w-xl w-24 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   Login
                 </button>
-
+                <a className='mt-4 text-center text-sm cursor-pointer text-gray-900' onClick={()=>{
+                  navigate('/forgotPass')
+                  setLogged(false)
+              }}>Forgot Password?</a>
               </form>
               <p className="mt-8 text-center text-sm text-gray-900">
                 Not a member?{' '}

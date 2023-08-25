@@ -18,6 +18,8 @@ const fetchProducts = () => {
   });
 };
 
+
+
 export const getItems = () =>{
   let res=''; 
   fetchProducts().then((data)=>{
@@ -29,22 +31,28 @@ export const getItems = () =>{
 const itemSlice = createSlice({
   name: "items",
   initialState: {
-    items: [],
+    value: [],
     loading: false,
   },
-  reducers:{},
-  extraReducers: {
-    [getItems.pending]: (state, ation) => {
-      state.loading = true;
-    },
-    [getItems.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.items = action.payload;
-    },
-    [getItems.rejected]: (state, action) => {
-      state.loading = false;
-    },
+  reducers:{
+    setData : (state, action)=>{
+      state.value = action.payload
+    }
   },
+  // extraReducers: {
+  //   [getItems.pending]: (state, ation) => {
+  //     state.loading = true;
+  //   },
+  //   [getItems.fulfilled]: (state, action) => {
+  //     state.loading = false;
+  //     state.items = action.payload;
+  //   },
+  //   [getItems.rejected]: (state, action) => {
+  //     state.loading = false;
+  //   },
+  // },
 });
+
+export const { setData } = itemSlice.actions;
 
 export default itemSlice.reducer;

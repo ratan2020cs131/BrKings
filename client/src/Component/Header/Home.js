@@ -3,8 +3,7 @@ import HeroImage from '../../Images/brauni-ai (1) 1.png';
 import "./Home.scss";
 import ProductCard from '../ProductCard/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getItems } from '../../Redux/Slices/itemSlice';
-
+import { getItems, setData } from '../../Redux/Slices/itemSlice';
 
 
 const fetchProducts = () => {
@@ -25,21 +24,55 @@ const fetchProducts = () => {
 };
 
 const Home = () => {
+  const data = [
+    { id: 1, name: 'Product 1', price: 19.99 },
+    { id: 2, name: 'Product 2', price: 29.99 },
+    { id: 3, name: 'Product 3', price: 39.99 },
+    { id: 4, name: 'Product 4', price: 39.99 },
+    { id: 5, name: 'Product 5', price: 39.99 },
+    { id: 6, name: 'Product 6', price: 39.99 },
+    // Add more products here
+  ];
 
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
 
-  // const {products,loader} = useSelector((state) => state.item);
-  // const dispatch = useDispatch();
-  // console.log(products);
+  const products = useSelector((state) => state.itemSlice.value);
+  const dispatch = useDispatch();
+  console.log(products);
+
+
+  const api = async ()=>{
+    const url = 'https://the-birthday-cake-db.p.rapidapi.com/';
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': 'e36681565emsh9146c025fdbce31p16f28cjsne0f0e729a32d',
+        'X-RapidAPI-Host': 'the-birthday-cake-db.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      // console.log(JSON.parse(result));
+      dispatch(setData(result));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
   useEffect(() => {
-    fetchProducts().then((data) => {
-      setProducts(data);
-      setLoading(false);
-    });
-    // dispatch(getItems);
-    // setLoading(false);
+    // fetchProducts().then((data) => {
+    //   setProducts(data);
+    //   setLoading(false);
+    // });
+
+    
+    api();
+
+    setLoading(false);
   }, []);
 
   return (
@@ -62,12 +95,12 @@ const Home = () => {
           {loading ? (
             <div className="text-center">Loading...</div>
           ) : (
-            <div className='grid grid-cols-2 lg:grid-cols-3 gap-2 my-3'>
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-2 justify-items-center my-4'>
               {products.map((product) => (
                 <div key={product.id}>
                   {/* <h2 className="text-xl font-bold">{product.name}</h2>
                   <p className="text-gray-600">{`$${product.price.toFixed(2)}`}</p> */}
-                  <ProductCard name={product.name} price={product.price} />
+                  <ProductCard name={product.title} price={product.id} image={product.image} />
                 </div>
               ))}
             </div>

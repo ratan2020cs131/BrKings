@@ -18,3 +18,9 @@
     border: 3px solid linear-gradient(180deg, #A0616A 0%, #622A20 100%);;
     /* border-image-source: linear-gradient(180deg, #A0616A 0%, #622A20 100%); */
 }
+
+
+.selected{
+    background-color: #DE6901;
+    color: black;
+}
