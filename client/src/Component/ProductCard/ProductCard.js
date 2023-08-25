@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import Veg from '../../Images/VEG.png'
-import Brownie from '../../Images/Rectangle 4273.png';
+import React from "react";
+import { Link } from "react-router-dom";
+import Veg from "../../Images/VEG.png";
+import Brownie from "../../Images/Rectangle 4273.png";
 
 const ProductCard = ({name , price, image}) => {
     return (
@@ -34,7 +34,11 @@ const ProductCard = ({name , price, image}) => {
                 {/* </div> */}
             </section>
         </div>
-    )
-}
+    //   </section>
+    // </div>
+    //   </section>
+    // </div>
+  );
+};
 
-export default ProductCard
+export default ProductCard;
