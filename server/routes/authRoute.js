@@ -23,8 +23,13 @@ router.get("/reset-password", rpController);
 //TEST ROUTES
 router.get("/test", requireSignIn, isAdmin, testController);
 
-//Protected Route Auth
+//Protected User Route Auth
 router.get("/user-auth", requireSignIn, (req, res) => {
+  res.status(200).send({ ok: true });
+});
+
+//Protected Admin Route Auth
+router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
   res.status(200).send({ ok: true });
 });
 
