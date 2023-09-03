@@ -1,6 +1,40 @@
 import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import randomstring from "randomstring";
+
+const sendResetPasswordMail = async (name, email, token) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      auth: {
+        user: process.env.email_User,
+        pass: process.env.email_Password,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.email_User,
+      to: email,
+      subject: "Password Reset.",
+      html: `<p> Hi ${name}. Please copy the link and <a href="http://localhost:8000/api/v1/auth/reset-password?token=${token}"> reset your password</a> by entering a new password. `,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Mail has been sent successfully.", info.response);
+      }
+    });
+  } catch (error) {
+    res.status(400).send({ success: true, message: error.message });
+  }
+};
 
 export const registerController = async (req, res) => {
   try {
@@ -100,6 +134,64 @@ export const loginController = async (req, res) => {
   }
 };
 
+export const fpController = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await userModel.findOne({ email });
+    if (user) {
+      const randomString = randomstring.generate();
+      const updatedData = await userModel.updateOne(
+        { email },
+        { $set: { token: randomString } }
+      );
+      sendResetPasswordMail(user.name, user.email, randomString);
+      res.status(200).send({
+        success: true,
+        message:
+          "Mail for password reset has been sent to your entered email address!",
+      });
+    } else {
+      res
+        .status(200)
+        .send({ success: true, message: "This email doesnt't exist" });
+    }
+  } catch (error) {
+    res.status(400).send({ success: false, message: error.message });
+  }
+};
+
+export const rpController = async (req, res) => {
+  try {
+    const token = req.query.token;
+    const tokenData = await userModel.findOne({ token });
+    if (tokenData) {
+      const password = req.body.password;
+      const newPassword = await hashPassword(password);
+      const userData = await userModel.findByIdAndUpdate(
+        { _id: tokenData._id },
+        { $set: { password: newPassword, token: "" } },
+        { new: true }
+      );
+      res.status(200).send({
+        success: true,
+        message: "Password has been reset successfully.",
+        data: userData,
+      });
+    } else {
+      res
+        .status(200)
+        .send({ success: true, message: "This link has been expired." });
+    }
+  } catch (error) {
+    res.status(400).send({ success: false, message: error.message });
+  }
+};
+
 export const testController = (req, res) => {
-  res.send("Protected Route");
+  try {
+    res.send("Protected routes");
+  } catch (error) {
+    console.log(error);
+    res.send({ error });
+  }
 };
