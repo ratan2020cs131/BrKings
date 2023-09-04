@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Logo from "../../Images/BrownieKing.png";
 import Cookie from "../../Images/brauni-ai (1) 1.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
 
 const Signup = ({ setSign, setLogged }) => {
+  const navigation =useNavigate();
   const [user, setuser] = useState({
     name: "",
     email: "",
@@ -21,6 +22,34 @@ const Signup = ({ setSign, setLogged }) => {
     // console.log(name,"-",value);
     setuser({ ...user, [name]: value });
   };
+
+  const postData = async (e) => {
+    // e.preventDefault();
+    const {name, email, phone, password, address} = user;
+
+    const res = await fetch("/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name, email, phone, password, address
+        })
+    });
+
+    const data = await res.json();
+    if(res.status === 500 || !data){
+        window.alert("Sorry User not register Try again");
+        // console.log("Sorry User not register Try again")
+    }
+    else{
+        window.alert("Congratulation User registered Successfully");
+        // console.log("Congratulation User registered Successfully")
+
+        navigation("/login");
+    }
+}
+
 
   return (
     <>
@@ -69,6 +98,17 @@ const Signup = ({ setSign, setLogged }) => {
                     name="email"
                   />
                 </label>
+                <label for="phone" className="loginInput">
+                  Phone
+                  <input
+                    placeholder="Email"
+                    type="phone"
+                    value={user.phone}
+                    onChange={loginInputs}
+                    id="phone"
+                    name="phone"
+                  />
+                </label>
                 <label for="password" className="loginInput">
                   Password
                   <input
@@ -93,6 +133,7 @@ const Signup = ({ setSign, setLogged }) => {
                 </label>
                 <button
                   id="submit"
+                  onClick={postData}
                   class=" mt-4 rounded-md bg-rose-950 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Register

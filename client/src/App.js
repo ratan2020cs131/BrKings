@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { React } from "react";
+import { React, useEffect } from "react";
 import Home from "./Component/Header/Home";
 import "./app.scss";
 import Navbar from "../src/Navbar/Navbar";
@@ -10,6 +10,7 @@ import ProductPage from "./Component/Product/ProductPage";
 import Api from "./API/Api";
 
 const Routing = () => {
+
 
   return (
     <>
@@ -32,6 +33,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <Api/>
       <Routing />
       <Footer />
     </div>
