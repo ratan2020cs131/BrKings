@@ -7,6 +7,12 @@ import ProductCard from '../ProductCard/ProductCard';
 
 const ProductPage = () => {
 
+  const [selectedButton, setSelectedButton] = useState(null);
+
+  const handleButtonClick = (buttonName) => {
+    setSelectedButton(buttonName);
+  };
+
   const [image, setImage] = useState({
     img1: "https://i.huffpost.com/gen/997773/images/o-BEAUTIFUL-FOOD-facebook.jpg",
     img2: "https://i.pinimg.com/originals/28/82/de/2882de7c3dd6b7c8e7fc2869990155b0.jpg",
@@ -36,15 +42,48 @@ const ProductPage = () => {
             </div>
             <div className='flex flex-col gap-2 max-w-screen-md mt-4'>
               <span className='font my-2 text-white'>Size:</span>
-              <div className='grid grid-cols-2 justify-items-streach px-3 lg:max-w-lg gap-2 h-48'>
-                <select>
-                  <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>4 Brownies</button>
-                  <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>8 Brownies</button>
-                  <button className='bg-transparent font-semibold py-2 lg:px-4 border leading-6 shadow-sm hover:border-transparent hover:bg-orange-600 text-xl lg:text-2xl  hover:text-black rounded pieces'>16 Brownies</button>
-                </select>
-
+              <div className='grid grid-cols-2 justify-items-streach px-3 lg:max-w-lg gap-4 h-48'>
+                <button className={`bg-transparent 
+                font-semibold py-2 
+                lg:px-4 border 
+                leading-6 shadow-sm 
+                hover:border-transparent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110
+                hover:bg-orange-600 
+                text-xl lg:text-2xl  
+                hover:text-black 
+                rounded pieces ${selectedButton === 'button1' ? 'selected' : ''}`}
+                  onClick={() => handleButtonClick('button1')}>
+                  4 Brownies
+                </button>
+                <button className={`bg-transparent 
+                font-semibold py-2 
+                lg:px-4 border 
+                leading-6 shadow-sm 
+                hover:border-transparent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 
+                hover:bg-orange-600 
+                text-xl lg:text-2xl  
+                hover:text-black 
+                rounded pieces ${selectedButton === 'button2' ? 'selected' : ''} `}
+                  onClick={() => handleButtonClick('button2')}>
+                  8 Brownies
+                </button>
+                <button className={`bg-transparent 
+                font-semibold py-2 
+                lg:px-4 border 
+                leading-6 shadow-sm 
+                hover:border-transparent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110
+                hover:bg-orange-600 
+                text-xl lg:text-2xl  
+                hover:text-black 
+                rounded pieces ${selectedButton === 'button3' ? 'selected' : ''} `}
+                  onClick={() => handleButtonClick('button3')}>
+                  16 Brownies
+                </button>
               </div>
-              <button className='mt-3 rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/2'>Add to Cart</button>
+              <button className='mt-3 rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/2
+              transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110'>
+                Add to Cart
+              </button>
               <p className='font text-white lg:text-2xl lg:mt-6 my-3 lg:px-4'>Ciao I'm the brownie that's ultra chocolatey sandwiched with Crunchy Maltesers .
                 I'm the Crunchiest  and the fudgiest among all of siblings.
                 There is no person who has never loved me after trying me out once.
