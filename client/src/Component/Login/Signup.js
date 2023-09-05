@@ -6,7 +6,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
 
 const Signup = ({ setSign, setLogged }) => {
-  const navigation =useNavigate();
+  const navigation = useNavigate();
   const [user, setuser] = useState({
     name: "",
     email: "",
@@ -25,31 +25,33 @@ const Signup = ({ setSign, setLogged }) => {
 
   const postData = async (e) => {
     // e.preventDefault();
-    const {name, email, phone, password, address} = user;
+    const { name, email, phone, password, address } = user;
 
-    const res = await fetch("/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name, email, phone, password, address
-        })
+    const res = await fetch("/api/v1/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        password,
+        address,
+      }),
     });
 
     const data = await res.json();
-    if(res.status === 500 || !data){
-        window.alert("Sorry User not register Try again");
-        // console.log("Sorry User not register Try again")
-    }
-    else{
-        window.alert("Congratulation User registered Successfully");
-        // console.log("Congratulation User registered Successfully")
+    if (res.status === 500 || !data) {
+      window.alert("Sorry User not register Try again");
+      // console.log("Sorry User not register Try again")
+    } else {
+      window.alert("Congratulation User registered Successfully");
+      // console.log("Congratulation User registered Successfully")
 
-        navigation("/login");
+      navigation("/login");
     }
-}
-
+  };
 
   return (
     <>
