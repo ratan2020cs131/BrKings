@@ -101,7 +101,7 @@ const Signup = ({ setSign, setLogged }) => {
                 <label for="phone" className="loginInput">
                   Phone
                   <input
-                    placeholder="Email"
+                    placeholder="Phone"
                     type="phone"
                     value={user.phone}
                     onChange={loginInputs}

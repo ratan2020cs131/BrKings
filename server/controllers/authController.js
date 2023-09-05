@@ -154,7 +154,7 @@ export const fpController = async (req, res) => {
       });
     } else {
       res
-        .status(200)
+        .status(404)
         .send({ success: true, message: "This email doesnt't exist" });
     }
   } catch (error) {
