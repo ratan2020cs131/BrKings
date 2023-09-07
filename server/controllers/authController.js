@@ -38,7 +38,7 @@ const sendResetPasswordMail = async (name, email, token) => {
 
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address, role } = req.body;
     if (!name) {
       return res.send({ message: "Name is required" });
     }
@@ -70,6 +70,7 @@ export const registerController = async (req, res) => {
       phone,
       address,
       password: hashedPassword,
+      role,
     }).save();
     res.status(201).send({
       sucess: true,
@@ -87,7 +88,6 @@ export const registerController = async (req, res) => {
 };
 
 export const loginController = async (req, res) => {
-  console.log("login");
   try {
     const { email, password } = req.body;
 
