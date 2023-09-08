@@ -32,3 +32,5 @@ export const createCategoryController = async (req, res) => {
     });
   }
 };
+
+export const updateCategoryController = () => {};
