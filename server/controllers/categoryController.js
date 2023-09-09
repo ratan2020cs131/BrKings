@@ -56,3 +56,21 @@ export const updateCategoryController = async (req, res) => {
     });
   }
 };
+
+export const fetchCategoriesController = async (req, res) => {
+  try {
+    const category = await categoryModel.find({});
+    res.status(200).send({
+      success: true,
+      message: "All Categories List",
+      category,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      error,
+      message: "Error while fetching Categories",
+    });
+  }
+};
