@@ -1,3 +1,4 @@
+import { response } from "express";
 import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
@@ -21,7 +22,8 @@ const sendResetPasswordMail = async (name, email, token) => {
       from: process.env.email_User,
       to: email,
       subject: "Password Reset.",
-      html: `<p> Hi ${name}. Please copy the link and <a href="http://localhost:8000/api/v1/auth/reset-password?token=${token}"> reset your password</a> by entering a new password. `,
+      html: `<div> Hi <b>${name}</b>. Please click on the below button to reset your password. </div>
+      <a style="text-decoration:none; display:inline-block; text-align:center; padding:5px 10px; height:auto; width:auto; background-color:green; color:white; font-weight:700; border-radius:3px;" href="http://localhost:8000/api/v1/auth/reset-password?token=${token}"> RESET </a>` 
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -57,7 +59,7 @@ export const registerController = async (req, res) => {
 
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      res.status(200).send({
+      res.status(422).send({
         success: false,
         message: "Already Registered! Please Login.",
       });
@@ -71,7 +73,7 @@ export const registerController = async (req, res) => {
       address,
       password: hashedPassword,
     }).save();
-    res.status(201).send({
+    res.status(200).send({
       sucess: true,
       message: "User Registered Successfully",
       user,
@@ -92,7 +94,7 @@ export const loginController = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(404).send({
+      return res.status(406).send({
         success: false,
         message: "Invalid email or password",
       });
@@ -106,7 +108,7 @@ export const loginController = async (req, res) => {
     }
     const match = await comparePassword(password, user.password);
     if (!match) {
-      res.status(200).send({
+      res.status(404).send({
         success: false,
         message: "Invalid password",
       });
@@ -140,6 +142,7 @@ export const fpController = async (req, res) => {
   try {
     const { email } = req.body;
     const user = await userModel.findOne({ email });
+    console.log(req.body);
     if (user) {
       const randomString = randomstring.generate();
       const updatedData = await userModel.updateOne(
@@ -167,6 +170,22 @@ export const rpController = async (req, res) => {
     const token = req.query.token;
     const tokenData = await userModel.findOne({ token });
     if (tokenData) {
+      res.redirect(`http://localhost:3000/reset-password?token=${token}`);
+    } else {
+      res
+        .status(200)
+        .send({ success: true, message: "This link has been expired." });
+    }
+  } catch (error) {
+    res.status(400).send({ success: false, message: error.message });
+  }
+};
+
+export const upController = async (req, res) => {
+  try {
+    const token = req.body.token;
+    const tokenData = await userModel.findOne({ token });
+    if (tokenData) {
       const password = req.body.password;
       const newPassword = await hashPassword(password);
       const userData = await userModel.findByIdAndUpdate(
@@ -181,8 +200,8 @@ export const rpController = async (req, res) => {
       });
     } else {
       res
-        .status(200)
-        .send({ success: true, message: "This link has been expired." });
+        .status(401)
+        .send({ success: true, message: "This token has been expired." });
     }
   } catch (error) {
     res.status(400).send({ success: false, message: error.message });

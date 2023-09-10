@@ -24,8 +24,8 @@ const Signup = ({ setSign, setLogged }) => {
   };
 
   const postData = async (e) => {
-    // e.preventDefault();
-    const {name, email, phone, password, address} = user;
+    e.preventDefault();
+    const { name, email, phone, password, address } = user;
 
     const res = await fetch("/register", {
         method: "POST",
@@ -37,16 +37,12 @@ const Signup = ({ setSign, setLogged }) => {
         })
     });
 
-    const data = await res.json();
-    if(res.status === 500 || !data){
-        window.alert("Sorry User not register Try again");
-        // console.log("Sorry User not register Try again")
-    }
-    else{
-        window.alert("Congratulation User registered Successfully");
-        // console.log("Congratulation User registered Successfully")
-
-        navigation("/login");
+    if (res.status === 500 || !data) {
+      window.alert(data.message);
+    } else {
+      window.alert(data.message);
+      setLogged(true);
+      setSign(false);
     }
 }
 
@@ -101,7 +97,7 @@ const Signup = ({ setSign, setLogged }) => {
                 <label for="phone" className="loginInput">
                   Phone
                   <input
-                    placeholder="Phone"
+                    placeholder="Phone No."
                     type="phone"
                     value={user.phone}
                     onChange={loginInputs}
