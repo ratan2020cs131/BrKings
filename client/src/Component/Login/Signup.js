@@ -27,7 +27,7 @@ const Signup = ({ setSign, setLogged }) => {
     e.preventDefault();
     const { name, email, phone, password, address } = user;
 
-    const res = await fetch("/register", {
+    const res = await fetch("/api/v1/auth/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -36,8 +36,9 @@ const Signup = ({ setSign, setLogged }) => {
             name, email, phone, password, address
         })
     });
+    const data = await res.json();
 
-    if (res.status === 500 || !data) {
+    if (res.status === 422 || !data || res.status === 500) {
       window.alert(data.message);
     } else {
       window.alert(data.message);
