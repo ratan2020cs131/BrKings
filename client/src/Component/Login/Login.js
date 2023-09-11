@@ -22,11 +22,11 @@ const Login = ({ setSign, setLogged }) => {
   }
 
   const logined = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     console.log("login");
     const { email, password } = user;
 
-    const res = await fetch("/login", {
+    const res = await fetch("/api/v1/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -35,16 +35,16 @@ const Login = ({ setSign, setLogged }) => {
         email, password
       })
     });
-    await res.json();
+    const data = await res.json();
 
     if (res.status === 200) {
-      window.alert("User Logedin");
-
+      window.alert(data.message);
+      setLogged(false);
       navigate("/");
     }
     else {
       if (res.status === 404) { navigate("/signup"); }
-      window.alert("Invalid Credentioals");
+      window.alert(data.message);
       // console.log("Invalid Credentioals")
     }
   }
@@ -94,7 +94,7 @@ const Login = ({ setSign, setLogged }) => {
                   setSign(true)
                   setLogged(false)
                 }}>
-                  {console.log("signup")}
+                  {/* {console.log("signup")} */}
                   <a className="font-semibold leading-6 text-rose-950 hover:text-amber-500">
                     Signup
                   </a>

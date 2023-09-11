@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Logo from "../../Images/BrownieKing.png";
 import Cookie from "../../Images/brauni-ai (1) 1.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
 
 const Signup = ({ setSign, setLogged }) => {
-  const navigation = useNavigate();
   const [user, setuser] = useState({
     name: "",
     email: "",
@@ -24,32 +23,26 @@ const Signup = ({ setSign, setLogged }) => {
   };
 
   const postData = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const { name, email, phone, password, address } = user;
 
     const res = await fetch("/api/v1/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        password,
-        address,
-      }),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name, email, phone, password, address
+        })
     });
-
     const data = await res.json();
-    if (res.status === 500 || !data) {
-      window.alert("Sorry User not register Try again");
-      // console.log("Sorry User not register Try again")
-    } else {
-      window.alert("Congratulation User registered Successfully");
-      // console.log("Congratulation User registered Successfully")
 
-      navigation("/login");
+    if (res.status === 422 || !data || res.status === 500) {
+      window.alert(data.message);
+    } else {
+      window.alert(data.message);
+      setLogged(true);
+      setSign(false);
     }
   };
 
@@ -103,7 +96,7 @@ const Signup = ({ setSign, setLogged }) => {
                 <label for="phone" className="loginInput">
                   Phone
                   <input
-                    placeholder="Email"
+                    placeholder="Phone No."
                     type="phone"
                     value={user.phone}
                     onChange={loginInputs}

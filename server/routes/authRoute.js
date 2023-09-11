@@ -5,6 +5,7 @@ import {
   testController,
   fpController,
   rpController,
+  upController,
 } from "../controllers/authController.js";
 
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
@@ -19,7 +20,7 @@ router.post("/forget-password", fpController);
 
 //RESET PASSWORD
 router.get("/reset-password", rpController);
-
+router.post("/reset-password", upController);
 //TEST ROUTES
 router.get("/test", requireSignIn, isAdmin, testController);
 
