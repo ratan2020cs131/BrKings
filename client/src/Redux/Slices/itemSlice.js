@@ -2,25 +2,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import data from "../../API/product.json";
 
- export const fetchProducts = createAsyncThunk("items/fetchItems", async () => {
+ export const fetchProducts = createAsyncThunk("items/fetchItems",async () => {
   return data;
 })
 
 const itemSlice = createSlice({
   name: "items",
-  initialState: [],
-  reducers:{
-    setData : (state, action)=>{
-      
-    },
+  initialState: {
+    products: [],
   },
   extraReducers:(builder) =>{
-    builder.addCase(fetchProducts.fulfilled ,(state, action) => {
-      return action.payload;
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+      state.products = action.payload;
     })
   }
 });
 
-// export const { setData } = itemSlice.actions;
 
 export default itemSlice.reducer;

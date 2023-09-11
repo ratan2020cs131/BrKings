@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const UserSlice =createSlice({
     name: "user",
     initialState: {
-        login: false,
+        isloggedin: false,
     },
     extraReducers:(builder) => {
-        builder.addCase()
+        
     }
 })
 

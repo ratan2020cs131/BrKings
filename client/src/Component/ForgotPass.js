@@ -28,7 +28,7 @@ const ForgotPass = () => {
     if (res.status === 200) {
       window.alert(data.message);
 
-      navigate("/updatePass");
+      navigate("/");
     }
     else {
       if (res.status === 404) { navigate("/signup"); }

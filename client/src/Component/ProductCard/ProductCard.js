@@ -11,7 +11,7 @@ const ProductCard = ({name , price, image}) => {
         <div>
             <section>
                 {/* <div className='grid grid-cols-2 lg:grid-cols-3 gap-2 my-3'> */}
-                    <div className='py-2 px-2 my-2 border-orange-950/[5] border-4 rounded-lg max-w-sm transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-109'
+                    <div className='py-2 px-2 my-2 border-orange-950/[5] border-4 rounded-lg max-w-sm transform transition duration-300 hover:scale-110'
                     onClick={()=> navigate('/productpage')}>
                             <div className=' rounded overflow-hidden'>
                                 <img src={image} alt='image' className='w-full aspect-square rounded-md cursor-pointer' />

@@ -4,22 +4,32 @@ import "./Home.scss";
 import ProductCard from '../ProductCard/ProductCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from "../../Redux/Slices/itemSlice";
+import { selectPagination, setCurrentPage } from '../../Redux/Slices/Pagination';
 
 
 
 
 const Home = () => {
 
-  const [loading, setLoading] = useState(true);
-  // const [products, setProducts] = useState([]);
+  const { currentPage, itemsPerPage } = useSelector(selectPagination);
 
-  const products = useSelector(state => state.item);
+  const [loading, setLoading] = useState(true);
+
+  const product = useSelector(state => state.item);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(false);
     dispatch(fetchProducts())
-  }, []);
+  }, [dispatch]);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentProducts = product.products.slice(startIndex, endIndex);
+
+  const onPageChange = (newPage) => {
+    dispatch(setCurrentPage(newPage));
+  };
 
   return (
     <>
@@ -42,7 +52,7 @@ const Home = () => {
             <div className="text-center">Loading...</div>
           ) : (
             <div className='grid grid-cols-2 lg:grid-cols-3 gap-2 justify-items-center my-4'>
-              {products.map((product) => (
+              {currentProducts.map((product) => (
                 <div key={product.id}>
                   {/* <h2 className="text-xl font-bold">{product.name}</h2>
                   <p className="text-gray-600">{`$${product.price.toFixed(2)}`}</p> */}
@@ -51,6 +61,23 @@ const Home = () => {
               ))}
             </div>
           )}
+        </div>
+        <div className="pagination font-semibold flex justify-center text-lg text-orange-600 font2 gap-3 py-4 mt-3">
+          <button
+            className='border-2 border-orange-950/[5] p-1 rounded-sm transform transition duration-300 hover:scale-110'
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span className='border-2 border-orange-950/[5] p-1 px-2 rounded-sm'> {currentPage}</span>
+          <button
+            className='border-2 border-orange-950/[5] p-1 px-3 rounded-sm transform transition duration-300 hover:scale-110'
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={endIndex >= product.products.length}
+          >
+            Next
+          </button>
         </div>
       </div>
     </>

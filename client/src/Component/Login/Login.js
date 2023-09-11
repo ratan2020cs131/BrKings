@@ -39,7 +39,7 @@ const Login = ({ setSign, setLogged }) => {
 
     if (res.status === 200) {
       window.alert(data.message);
-
+      setLogged(false);
       navigate("/");
     }
     else {
