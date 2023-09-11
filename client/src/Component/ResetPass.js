@@ -35,7 +35,7 @@ const ResetPass = () => {
 
   return (
     <>
-      <div className='forgotPass'>
+      <div className='forgotPass bgPage'>
         <div className=' max-w-[520px] w-full flex justify-center m-4 bg-black rounded-lg '>
           <div className=' w-full h-auto mt-3 gap-4'>
             <div className='flex justify-center'>

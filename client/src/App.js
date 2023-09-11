@@ -7,7 +7,6 @@ import Cart from "./Component/Cart/Cart";
 import Error from "./Component/Error";
 import Footer from "./Component/Footer";
 import ProductPage from "./Component/Product/ProductPage";
-import Api from "./API/Api";
 import ForgotPass from "./Component/ForgotPass";
 import ResetPass from "./Component/ResetPass";
 
@@ -20,7 +19,6 @@ const Routing = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="*" element={<Error />} />
-        <Route path="/api" element={<Api />} />
         <Route path="/forgotPass" element={<ForgotPass />} />
         <Route path="/reset-password" element={<ResetPass />} />
         <Route path="ProductPage" element={<ProductPage />} />
@@ -37,7 +35,6 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Api/>
       <Routing />
       <Footer />
     </div>

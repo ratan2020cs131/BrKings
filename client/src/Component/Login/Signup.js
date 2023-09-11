@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Logo from "../../Images/BrownieKing.png";
 import Cookie from "../../Images/brauni-ai (1) 1.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
 
 const Signup = ({ setSign, setLogged }) => {
-  const navigation =useNavigate();
+
   const [user, setuser] = useState({
     name: "",
     email: "",

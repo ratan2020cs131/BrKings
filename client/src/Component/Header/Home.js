@@ -2,7 +2,8 @@ import { useEffect, useState, React } from 'react'
 import HeroImage from '../../Images/brauni-ai (1) 1.png';
 import "./Home.scss";
 import ProductCard from '../ProductCard/ProductCard';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts } from "../../Redux/Slices/itemSlice";
 
 
 
@@ -13,26 +14,26 @@ const Home = () => {
   // const [products, setProducts] = useState([]);
 
   const products = useSelector(state => state.item);
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(false);
-
+    dispatch(fetchProducts())
   }, []);
 
   return (
     <>
       <div className='bg-gray-950 w-full h-full'>
         <div className="lg:h-72 h-2/6 md:h-2/5 font flex flex-row  bg py-1">
-          <div className="lg:text-3xl flex flex-col justify-center py-2 ml-2 lg:mx-9 lg:px-4 lg:w-2/3 text-sm px-3 w-2/3 ">
+          <div className="md:text-3xl flex flex-col justify-center py-2 ml-2 md:ml-9 md:px-4 text-sm px-3 w-[70%] ">
             <p>A place for</p>
-            <div className="lg:header-subcontent font3 text-3xl font-semibold lg:text-7xl lg:my-4 text-white my-1">Imperial Treats</div>
+            <div className="md:header-subcontent font3 text-3xl font-semibold md:text-7xl md:my-4 text-white my-1">Imperial Treats</div>
             <p>
               Indulge in the royal decadance of Brownie King's heavenly creation
             </p>
           </div>
-          <div className="w-1/3 imgBox">
-            <img src={HeroImage} alt="Imgae" className='w-full h-full object-contain' />
+          <div className="w-[30%] imgBox">
+            <img src={HeroImage} alt="Imgae" className=' w-[100%] h-[100%] object-contain md:absolute md:top-[24px]' />
           </div>
         </div>
         <div className='lg:mx-8 mx-4 flex flex-col mt-10 gap-4'>
