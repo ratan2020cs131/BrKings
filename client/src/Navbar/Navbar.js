@@ -19,14 +19,15 @@ import Signup from '../Component/Login/Signup';
 import Login from '../Component/Login/Login';
 import Button from '@mui/material/Button';
 import '../Component/NavTabs/NavTabs.css'
-
+import { selectUser, login,logout,signup } from '../Redux/Slices/UserSlice';
+import { useDispatch, useSelector } from 'react-redux';
 const pages = ['Brownies', 'Track Order', 'Get in Touch', 'about us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
 
-    const [openLogged, setLogged] = React.useState(false);
-    const [openSign, setSign] = React.useState(false);
+    const user = useSelector(selectUser);
+    const dispatch = useDispatch();
 
     const [value, setValue] = React.useState('one');
 
@@ -153,7 +154,7 @@ const Navbar = () => {
                             </Stack>
 
                             <div className=' lg:mx-4'>
-                                <Button variant="outlined" sx={{ color: '#dd6800' }} onClick={() => { setLogged(true) }} >
+                                <Button variant="outlined" sx={{ color: '#dd6800' }} onClick={() => dispatch(login()) } >
                                     Login
                                 </Button>
                             </div>
@@ -167,8 +168,9 @@ const Navbar = () => {
                         </Toolbar>
                     </Container>
                 </AppBar>
-                {openLogged ? <Login setSign={setSign} setLogged={setLogged} /> : null}
-                {openSign ? <Signup setSign={setSign} setLogged={setLogged} /> : null}
+                {user.isLoggedin ? <Login/> : null}
+                {user.isSignedup ? <Signup/> : null}
+                
             </div>
         </>
     );
