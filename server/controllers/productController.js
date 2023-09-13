@@ -47,3 +47,25 @@ export const createProductController = async (req, res) => {
     });
   }
 };
+
+export const getProductController = async (req, res) => {
+  try {
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .limit(12)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      message: "List of All Products",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error in getting all products",
+    });
+  }
+};
