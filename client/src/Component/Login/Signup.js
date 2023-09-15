@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import Logo from "../../Images/BrownieKing.png";
 import Cookie from "../../Images/brauni-ai (1) 1.png";
 import { Link } from "react-router-dom";
+import { login,closeSign } from '../../Redux/Slices/UserSlice';
+import { useDispatch } from 'react-redux';
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
+import {toast} from "react-toastify";
 
-const Signup = ({ setSign, setLogged }) => {
+const Signup = () => {
+  const dispatch = useDispatch();
   const [user, setuser] = useState({
     name: "",
     email: "",
@@ -27,37 +31,37 @@ const Signup = ({ setSign, setLogged }) => {
     const { name, email, phone, password, address } = user;
 
     const res = await fetch("/api/v1/auth/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name, email, phone, password, address
-        })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name, email, phone, password, address
+      })
     });
     const data = await res.json();
 
     if (res.status === 422 || !data || res.status === 500) {
-      window.alert(data.message);
+      toast.success(data.message);
     } else {
-      window.alert(data.message);
-      setLogged(true);
-      setSign(false);
+      toast.error(data.message);
+      dispatch(login());
+      dispatch(closeSign());
     }
   };
 
   return (
     <>
-      <div className="flex min-h-full justify-center my-7 h-screen main">
+      <div className=" main">
         <div className="flex flex-col justify-center  bgimage">
           <button
             onClick={() => {
-              setSign(false);
+              dispatch(closeSign());
             }}
           >
             <CancelIcon className="closeBtn" />
           </button>
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm logo">
+          <div className="logo">
             <img
               className="mx-auto h-25 w-auto"
               src={Logo}
@@ -69,7 +73,7 @@ const Signup = ({ setSign, setLogged }) => {
             Create New account
           </h2>
           <div className="card flex-row">
-            <div className=" sm:mx-auto  sm:max-w-sm cred">
+            <div className=" cred">
               <form className="loginForm">
                 <label for="name" className="loginInput">
                   Name
@@ -139,8 +143,8 @@ const Signup = ({ setSign, setLogged }) => {
                 Already a member?{" "}
                 <Link
                   onClick={() => {
-                    setLogged(true);
-                    setSign(false);
+                    dispatch(login());
+                    dispatch(closeSign());
                   }}
                 >
                   <a className="font-semibold leading-6 text-rose-950 hover:text-amber-500">

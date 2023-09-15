@@ -13,19 +13,15 @@ const Home = () => {
 
   const { currentPage, itemsPerPage } = useSelector(selectPagination);
 
-  const [loading, setLoading] = useState(true);
-
-  const product = useSelector(state => state.item);
+  const {products} = useSelector(state => state.item);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(false);
     dispatch(fetchProducts())
   }, [dispatch]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentProducts = product.products.slice(startIndex, endIndex);
 
   const onPageChange = (newPage) => {
     dispatch(setCurrentPage(newPage));
@@ -48,19 +44,13 @@ const Home = () => {
         </div>
         <div className='lg:mx-8 mx-4 flex flex-col mt-10 gap-4'>
           <h1 className='font text-white text-3xl'>Our Exclusive Pics</h1>
-          {loading ? (
-            <div className="text-center">Loading...</div>
-          ) : (
-            <div className='grid grid-cols-2 lg:grid-cols-3 gap-2 justify-items-center my-4'>
-              {currentProducts.map((product) => (
-                <div key={product.id}>
-                  {/* <h2 className="text-xl font-bold">{product.name}</h2>
-                  <p className="text-gray-600">{`$${product.price.toFixed(2)}`}</p> */}
-                  <ProductCard name={product.title} price={product.id} image={product.image} />
-                </div>
-              ))}
-            </div>
-          )}
+          <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center my-4'>
+            {products && products.slice(startIndex, endIndex).map((product) => (
+              <div key={product.id}>
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
         </div>
         <div className="pagination font-semibold flex justify-center text-lg text-orange-600 font2 gap-3 py-4 mt-3">
           <button
@@ -74,7 +64,7 @@ const Home = () => {
           <button
             className='border-2 border-orange-950/[5] p-1 px-3 rounded-sm transform transition duration-300 hover:scale-110'
             onClick={() => onPageChange(currentPage + 1)}
-            disabled={endIndex >= product.products.length}
+            disabled={endIndex >= products.length}
           >
             Next
           </button>

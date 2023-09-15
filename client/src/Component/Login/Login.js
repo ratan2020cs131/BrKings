@@ -2,13 +2,17 @@ import React, { useState } from 'react'
 import Logo from '../../Images/BrownieKing.png';
 import Cookie from '../../Images/brauni-ai (1) 1.png';
 import { Link, useNavigate } from 'react-router-dom';
+import { closeLog, signup, loggedin } from '../../Redux/Slices/UserSlice';
+import { useDispatch } from 'react-redux';
 import CancelIcon from '@mui/icons-material/Cancel';
 import "./Login.css";
+import {toast} from "react-toastify";
 
 
 
-const Login = ({ setSign, setLogged }) => {
+const Login = () => {
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: '', password: ''
@@ -29,7 +33,7 @@ const Login = ({ setSign, setLogged }) => {
     const res = await fetch("/api/v1/auth/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email, password
@@ -38,14 +42,17 @@ const Login = ({ setSign, setLogged }) => {
     const data = await res.json();
 
     if (res.status === 200) {
-      window.alert(data.message);
-      setLogged(false);
+      // window.alert(data.message);
+      toast.success(data.message);
+      dispatch(closeLog());
+      dispatch(loggedin());
+      dispatch(loggedin(data.user.name));
       navigate("/");
     }
     else {
       if (res.status === 404) { navigate("/signup"); }
-      window.alert(data.message);
-      // console.log("Invalid Credentioals")
+      // window.alert(data.message);
+      toast.error(data.message);
     }
   }
 
@@ -53,7 +60,7 @@ const Login = ({ setSign, setLogged }) => {
     <>
       <div className='flex justify-center main'>
         <div className="flex flex-col justify-center  flex-wrap bgimage">
-          <button onClick={() => { setLogged(false) }}>
+          <button onClick={() => dispatch(closeLog()) }>
             <CancelIcon className='closeBtn' />
           </button>
           <div className="logo">
@@ -68,7 +75,7 @@ const Login = ({ setSign, setLogged }) => {
             Sign in to your account
           </h2>
           <div className='card mt-2 flex-row'>
-            <div className="mt-10 sm:mx-auto  sm:max-w-sm  cred">
+            <div className="mt-3 sm:mx-auto  sm:max-w-sm  cred">
               <form className='loginForm'>
                 <label for='email' className='loginInput'>
                   Email
@@ -85,14 +92,14 @@ const Login = ({ setSign, setLogged }) => {
                 </button>
                 <a className='mt-4 text-center text-sm cursor-pointer text-gray-900' onClick={() => {
                   navigate('/forgotPass')
-                  setLogged(false)
+                  dispatch(closeLog());
                 }}>Forgot Password?</a>
               </form>
               <p className="mt-8 text-center text-sm text-gray-900">
                 Not a member?{' '}
                 <Link onClick={() => {
-                  setSign(true)
-                  setLogged(false)
+                  dispatch(signup());
+                  dispatch(closeLog());
                 }}>
                   {/* {console.log("signup")} */}
                   <a className="font-semibold leading-6 text-rose-950 hover:text-amber-500">
@@ -115,4 +122,4 @@ const Login = ({ setSign, setLogged }) => {
   )
 }
 
-export default Login
+export default Login;
