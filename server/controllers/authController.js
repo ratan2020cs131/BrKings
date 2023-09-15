@@ -23,7 +23,7 @@ const sendResetPasswordMail = async (name, email, token) => {
       to: email,
       subject: "Password Reset.",
       html: `<div> Hi <b>${name}</b>. Please click on the below button to reset your password. </div>
-      <a style="text-decoration:none; display:inline-block; text-align:center; padding:5px 10px; height:auto; width:auto; background-color:green; color:white; font-weight:700; border-radius:3px;" href="http://localhost:8000/api/v1/auth/reset-password?token=${token}"> RESET </a>` 
+      <a style="text-decoration:none; display:inline-block; text-align:center; padding:5px 10px; height:auto; width:auto; background-color:green; color:white; font-weight:700; border-radius:3px;" href="http://localhost:8000/api/v1/auth/reset-password?token=${token}"> RESET </a>`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
