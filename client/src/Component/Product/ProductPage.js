@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Product.css';
 import Experience from '../../Images/Rectangle 4291.png';
 import ProductCard from '../ProductCard/ProductCard';
+import { Link, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts } from "../../Redux/Slices/itemSlice";
+import LikeProduct from '../ProductCard/LikeProduct';
 
 
 
@@ -12,6 +16,20 @@ const ProductPage = () => {
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
   };
+  
+  let { productId } = useParams();
+  let [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const products = useSelector(state => state.item);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoading(false);
+    dispatch(fetchProducts())
+  }, [dispatch]);
+  
+
 
   const [image, setImage] = useState({
     img1: "https://i.huffpost.com/gen/997773/images/o-BEAUTIFUL-FOOD-facebook.jpg",
@@ -120,7 +138,7 @@ const ProductPage = () => {
       </section>
       <div className='mx-8 flex flex-col my-14 gap-4'>
         <h1 className='font text-white text-3xl'>You may also like</h1>
-        <ProductCard />
+        <LikeProduct />
       </div>
     </div>
   )

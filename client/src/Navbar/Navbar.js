@@ -17,9 +17,10 @@ import "../Component/NavTabs/NavTabs.css"
 import { NavLink } from 'react-router-dom';
 import Signup from '../Component/Login/Signup';
 import Login from '../Component/Login/Login';
+import LoginOutBtn from "../Component/LoginoutBtn/LoginoutBtn";
 import Button from '@mui/material/Button';
 import '../Component/NavTabs/NavTabs.css'
-import { selectUser, login,logout,signup } from '../Redux/Slices/UserSlice';
+import { selectUser, login, } from '../Redux/Slices/UserSlice';
 import { useDispatch, useSelector } from 'react-redux';
 const pages = ['Brownies', 'Track Order', 'Get in Touch', 'about us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -153,14 +154,15 @@ const Navbar = () => {
                                 <NavTabs />
                             </Stack>
 
-                            <div className=' lg:mx-4'>
-                                <Button variant="outlined" sx={{ color: '#dd6800' }} onClick={() => dispatch(login()) } >
+                            <LoginOutBtn/>
+                            {/* <div className=' lg:mx-4'>
+                                <Button variant="outlined" sx={{ color: '#dd6800' }}  >
                                     Login
                                 </Button>
-                            </div>
+                            </div> */}
 
 
-                            <NavLink className='mx-0' to="/Cart">
+                            <NavLink className='mx-0 transform transition duration-300 hover:scale-110' to="/Cart">
                                 <IconButton color="primary" sx={{ color: '#dd6800' }} aria-label="add to shopping cart">
                                     <AddShoppingCartIcon />
                                 </IconButton>
@@ -168,8 +170,8 @@ const Navbar = () => {
                         </Toolbar>
                     </Container>
                 </AppBar>
-                {user.isLoggedin ? <Login/> : null}
-                {user.isSignedup ? <Signup/> : null}
+                {user.openLogin ? <Login/> : null}
+                {user.openSignup ? <Signup/> : null}
                 
             </div>
         </>

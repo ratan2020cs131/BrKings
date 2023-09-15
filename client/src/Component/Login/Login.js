@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import Logo from '../../Images/BrownieKing.png';
 import Cookie from '../../Images/brauni-ai (1) 1.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { closeLog,signup } from '../../Redux/Slices/UserSlice';
+import { closeLog, signup, loggedin } from '../../Redux/Slices/UserSlice';
 import { useDispatch } from 'react-redux';
 import CancelIcon from '@mui/icons-material/Cancel';
 import "./Login.css";
+import {toast} from "react-toastify";
 
 
 
@@ -32,7 +33,7 @@ const Login = () => {
     const res = await fetch("/api/v1/auth/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email, password
@@ -41,14 +42,17 @@ const Login = () => {
     const data = await res.json();
 
     if (res.status === 200) {
-      window.alert(data.message);
+      // window.alert(data.message);
+      toast.success(data.message);
       dispatch(closeLog());
+      dispatch(loggedin());
+      dispatch(loggedin(data.user.name));
       navigate("/");
     }
     else {
       if (res.status === 404) { navigate("/signup"); }
-      window.alert(data.message);
-      // console.log("Invalid Credentioals")
+      // window.alert(data.message);
+      toast.error(data.message);
     }
   }
 
@@ -118,4 +122,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;

@@ -6,6 +6,7 @@ import { login,closeSign } from '../../Redux/Slices/UserSlice';
 import { useDispatch } from 'react-redux';
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
+import {toast} from "react-toastify";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -41,9 +42,9 @@ const Signup = () => {
     const data = await res.json();
 
     if (res.status === 422 || !data || res.status === 500) {
-      window.alert(data.message);
+      toast.success(data.message);
     } else {
-      window.alert(data.message);
+      toast.error(data.message);
       dispatch(login());
       dispatch(closeSign());
     }

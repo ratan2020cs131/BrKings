@@ -23,7 +23,7 @@ const sendResetPasswordMail = async (name, email, token) => {
       to: email,
       subject: "Password Reset.",
       html: `<div> Hi <b>${name}</b>. Please click on the below button to reset your password. </div>
-      <a style="text-decoration:none; display:inline-block; text-align:center; padding:5px 10px; height:auto; width:auto; background-color:green; color:white; font-weight:700; border-radius:3px;" href="http://localhost:8000/api/v1/auth/reset-password?token=${token}"> RESET </a>` 
+      <a style="text-decoration:none; display:inline-block; text-align:center; padding:5px 10px; height:auto; width:auto; background-color:green; color:white; font-weight:700; border-radius:3px;" href="http://localhost:8000/api/v1/auth/reset-password?token=${token}"> RESET </a>`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -116,7 +116,10 @@ export const loginController = async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.jwt_secret, {
       expiresIn: "7d",
     });
-    res.status(200).send({
+    res.cookie("jwtoken", token, {
+      expires: new Date(Date.now() + 86000),
+      httpOnly: true
+    }).status(200).send({
       success: true,
       message: "Login Successfully",
       user: {
@@ -215,4 +218,10 @@ export const testController = (req, res) => {
     console.log(error);
     res.send({ error });
   }
+};
+
+export const logout = (req, res) => {
+  console.log("You are logged out");
+  res.clearCookie("jwtoken", { path: "/" });
+  res.status(200).send("you are logged out");
 };

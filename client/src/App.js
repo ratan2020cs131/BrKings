@@ -9,6 +9,7 @@ import Footer from "./Component/Footer";
 import ProductPage from "./Component/Product/ProductPage";
 import ForgotPass from "./Component/ForgotPass";
 import ResetPass from "./Component/ResetPass";
+import ProtectedRoute from "./Component/ProtectedRoute";
 
 const Routing = () => {
 
@@ -16,13 +17,14 @@ const Routing = () => {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route element={<ProtectedRoute/>}>
         <Route path="/Cart" element={<Cart />} />
+        </Route>
+        <Route exact path="/" element={<Home />} />
         <Route path="*" element={<Error />} />
         <Route path="/forgotPass" element={<ForgotPass />} />
         <Route path="/reset-password" element={<ResetPass />} />
-        <Route path="ProductPage" element={<ProductPage />} />
-        {/* <Route path="/Navbar" element = {<Navbar/>} /> */}
+        <Route path="/ProductPage" element={<ProductPage />} />
       </Routes>
     </>
   )
