@@ -1,6 +1,7 @@
 import productModel from "../models/productModel.js";
 import fs from "fs";
 import slugify from "slugify";
+import userModel from "../models/userModel.js";
 
 export const createProductController = async (req, res) => {
   try {
@@ -105,6 +106,23 @@ export const productPhotoController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error while getting photo",
+      error,
+    });
+  }
+};
+
+export const deleteProductController = async (req, res) => {
+  try {
+    await productModel.findByIdAndDelete(req.params.pid).select("-photo");
+    res.status(200).send({
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while deleting product",
       error,
     });
   }
