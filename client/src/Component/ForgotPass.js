@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { login } from '../Redux/Slices/UserSlice';
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import {toast} from "react-toastify"
 
 const ForgotPass = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
 
@@ -26,13 +30,13 @@ const ForgotPass = () => {
     const data = await res.json();
 
     if (res.status === 200) {
-      window.alert(data.message);
+      toast.success(data.message);
 
       navigate("/");
     }
     else {
-      if (res.status === 404) { navigate("/signup"); }
-      window.alert(data.message);
+      if (res.status === 404) { dispatch(login) }
+      toast.error(data.message);
       // console.log("Invalid Credentioals")
     }
   }
