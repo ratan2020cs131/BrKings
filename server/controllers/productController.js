@@ -1,7 +1,6 @@
 import productModel from "../models/productModel.js";
 import fs from "fs";
 import slugify from "slugify";
-import userModel from "../models/userModel.js";
 
 export const createProductController = async (req, res) => {
   try {

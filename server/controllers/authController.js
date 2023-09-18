@@ -223,8 +223,11 @@ export const testController = (req, res) => {
   }
 };
 
-export const logout = (req, res) => {
-  console.log("You are logged out");
-  res.clearCookie("jwtoken", { path: "/" });
-  res.status(200).send("you are logged out");
+export const logout = async (req, res) => {
+  res
+    .cookie("jwtoken", null, {
+      expires: new Date(Date.now() + 86000),
+      httpOnly: true,
+    })
+    .sendStatus(200);
 };
