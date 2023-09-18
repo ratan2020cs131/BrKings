@@ -4,8 +4,7 @@ import slugify from "slugify";
 
 export const createProductController = async (req, res) => {
   try {
-    const { name, slug, description, price, category, quantity, shipping } =
-      req.fields;
+    const { name, description, price, category, quantity } = req.fields;
     const { photo } = req.files;
     if (!name) {
       return res.status(500).send({ error: "Name is required" });
@@ -129,8 +128,7 @@ export const deleteProductController = async (req, res) => {
 
 export const updateProductController = async (req, res) => {
   try {
-    const { name, slug, description, price, category, quantity, shipping } =
-      req.fields;
+    const { name, description, price, category, quantity } = req.fields;
     const { photo } = req.files;
     if (!name) {
       return res.status(500).send({ error: "Name is required" });
@@ -173,6 +171,19 @@ export const updateProductController = async (req, res) => {
       success: false,
       error,
       message: "Error in updating product",
+    });
+  }
+};
+
+export const filterProductController = async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      sucess: false,
+      error,
+      message: "Error in filtering products",
     });
   }
 };
