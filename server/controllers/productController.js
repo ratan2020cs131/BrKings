@@ -109,3 +109,70 @@ export const productPhotoController = async (req, res) => {
     });
   }
 };
+
+export const deleteProductController = async (req, res) => {
+  try {
+    await productModel.findByIdAndDelete(req.params.pid).select("-photo");
+    res.status(200).send({
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while deleting product",
+      error,
+    });
+  }
+};
+
+export const updateProductController = async (req, res) => {
+  try {
+    const { name, slug, description, price, category, quantity, shipping } =
+      req.fields;
+    const { photo } = req.files;
+    if (!name) {
+      return res.status(500).send({ error: "Name is required" });
+    }
+    if (!description) {
+      return res.status(500).send({ error: "Description is required" });
+    }
+    if (!price) {
+      return res.status(500).send({ error: "Price is required" });
+    }
+    if (!category) {
+      return res.status(500).send({ error: "Category is required" });
+    }
+    if (!quantity) {
+      return res.status(500).send({ error: "Quantity is required" });
+    }
+    if (photo && photo.size > 2000000) {
+      return res
+        .status(500)
+        .send({ error: "Photo is required and should be less than 2MB" });
+    }
+    const products = await productModel.findByIdAndUpdate(
+      req.params.pid,
+      { ...req.fields, slug: slugify(name) },
+      { new: true }
+    );
+    if (photo) {
+      products.photo.data = fs.readFileSync(photo.path);
+      products.photo.contentType = photo.type;
+    }
+    await products.save();
+    res.status(201).send({
+      success: true,
+      message: "Product Updated Successfully",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error in updating product",
+    });
+  }
+};

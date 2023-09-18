@@ -116,21 +116,24 @@ export const loginController = async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.jwt_secret, {
       expiresIn: "7d",
     });
-    res.cookie("jwtoken", token, {
-      expires: new Date(Date.now() + 86000),
-      httpOnly: true
-    }).status(200).send({
-      success: true,
-      message: "Login Successfully",
-      user: {
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        address: user.address,
-        role: user.role,
-      },
-      token,
-    });
+    res
+      .cookie("jwtoken", token, {
+        expires: new Date(Date.now() + 86000),
+        httpOnly: true,
+      })
+      .status(200)
+      .send({
+        success: true,
+        message: "Login Successfully",
+        user: {
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          address: user.address,
+          role: user.role,
+        },
+        token,
+      });
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -220,8 +223,11 @@ export const testController = (req, res) => {
   }
 };
 
-export const logout = (req, res) => {
-  console.log("You are logged out");
-  res.clearCookie("jwtoken", { path: "/" });
-  res.status(200).send("you are logged out");
+export const logout = async (req, res) => {
+  res
+    .cookie("jwtoken", null, {
+      expires: new Date(Date.now() + 86000),
+      httpOnly: true,
+    })
+    .sendStatus(200);
 };
