@@ -24,7 +24,7 @@ const Routing = () => {
         <Route path="*" element={<Error />} />
         <Route path="/forgotPass" element={<ForgotPass />} />
         <Route path="/reset-password" element={<ResetPass />} />
-        <Route path="/ProductPage" element={<ProductPage />} />
+        <Route path="/Product/:id" element={<ProductPage />} />
       </Routes>
     </>
   )
