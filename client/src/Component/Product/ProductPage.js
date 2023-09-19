@@ -37,8 +37,8 @@ const ProductPage = () => {
   })
 
   const [activeImage, setactiveImage] = useState()
-  useEffect(() => {
-    if (product) {
+  useEffect(() =>{
+    if(product){
       setactiveImage(product.image);
     }
   })

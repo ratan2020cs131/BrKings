@@ -9,7 +9,7 @@ const LoginoutBtn = () => {
     const user = useSelector(selectUser);
 
     const logoutHandler = () => {
-        fetch('/logout', {
+        fetch('/api/v1/auth/logout', {
             method: 'GET',
             headers: {
                 Accept: "application/json",

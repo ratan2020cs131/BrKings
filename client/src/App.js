@@ -10,6 +10,7 @@ import ProductPage from "./Component/Product/ProductPage";
 import ForgotPass from "./Component/ForgotPass";
 import ResetPass from "./Component/ResetPass";
 import ProtectedRoute from "./Component/ProtectedRoute";
+import Brownies from "./Component/Header/Brownies";
 
 const Routing = () => {
 
@@ -21,10 +22,12 @@ const Routing = () => {
         <Route path="/Cart" element={<Cart />} />
         </Route>
         <Route exact path="/" element={<Home />} />
+        <Route path="/brownies" element={<Brownies />} />
         <Route path="*" element={<Error />} />
         <Route path="/forgotPass" element={<ForgotPass />} />
         <Route path="/reset-password" element={<ResetPass />} />
         <Route path="/Product/:id" element={<ProductPage />} />
+        <Route path="/brownies/Product/:id" element={<ProductPage />} />
       </Routes>
     </>
   )

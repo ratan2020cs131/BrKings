@@ -99,7 +99,7 @@ export const loginController = async (req, res) => {
         message: "Invalid email or password",
       });
     }
-    const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ email:email });
     if (!user) {
       return res.status(404).send({
         success: false,

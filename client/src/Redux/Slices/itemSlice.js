@@ -25,7 +25,13 @@ export const fetchProductByIdAsync = createAsyncThunk(
 
 const itemSlice = createSlice({
   name: "items",
-  initialState: { isLoading: false, products: [], error: null, selectedProduct: null, status: 'idle' },
+  initialState: { 
+    isLoading: false, 
+    products: [], 
+    error: null, 
+    selectedProduct: null, 
+    status: 'idle' 
+  },
   extraReducers:(builder) =>{
     builder
     .addCase(fetchProducts.pending, (state, action) => {
