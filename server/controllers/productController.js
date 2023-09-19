@@ -176,8 +176,6 @@ export const updateProductController = async (req, res) => {
     });
   }
 };
-<<<<<<< Updated upstream
-=======
 
 export const filterProductController = async (req, res) => {
   try {
@@ -199,4 +197,3 @@ export const filterProductController = async (req, res) => {
     });
   }
 };
->>>>>>> Stashed changes
