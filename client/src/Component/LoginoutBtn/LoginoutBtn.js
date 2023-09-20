@@ -1,32 +1,34 @@
-import React from 'react'
-import {login, logout, selectUser } from '../../Redux/Slices/UserSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { selectUser, login, logout } from "../../Redux/Slices/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LoginoutBtn = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(selectUser);
 
-    const logoutHandler = () => {
-        fetch('/api/v1/auth/logout', {
-            method: 'GET',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            credentials: "include"
-        }).then(res => {
-            dispatch(logout());
-            navigate("/", { replace: true });//second parameter crealed the navigation history stack
-            if (res.status !== 200) {
-                const error = new Error(res.error);
-                throw error;
-            }
-        }).catch(err => {
-            console.log(err);
-        });
-    }
+  const logoutHandler = () => {
+    fetch("/api/v1/auth/logout", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+      .then((res) => {
+        dispatch(logout());
+        navigate("/", { replace: true }); //second parameter crealed the navigation history stack
+        if (res.status !== 200) {
+          const error = new Error(res.error);
+          throw error;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
 
     return (
@@ -48,4 +50,4 @@ const LoginoutBtn = () => {
     )
 }
 
-export default LoginoutBtn
+export default LoginoutBtn;
