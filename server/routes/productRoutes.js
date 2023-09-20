@@ -49,6 +49,6 @@ router.delete(
 );
 
 //FILTER PRODUCT
-router.get("/product-filters", filterProductController);
+router.post("/product-filters", filterProductController);
 
 export default router;
