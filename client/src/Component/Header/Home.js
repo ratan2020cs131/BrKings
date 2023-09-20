@@ -1,18 +1,15 @@
-import { useEffect, useState, React } from 'react'
+import { useEffect, React } from 'react'
 import HeroImage from '../../Images/brauni-ai (1) 1.png';
 import "./Home.scss";
 import ProductCard from '../ProductCard/ProductCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from "../../Redux/Slices/itemSlice";
-import { selectPagination, setCurrentPage } from '../../Redux/Slices/Pagination';
-
+import { useNavigate } from 'react-router';
 
 
 
 const Home = () => {
-
-  const { currentPage, itemsPerPage } = useSelector(selectPagination);
-
+  const navigate = useNavigate();
   const {products} = useSelector(state => state.item);
   const dispatch = useDispatch();
 
@@ -20,12 +17,6 @@ const Home = () => {
     dispatch(fetchProducts())
   }, [dispatch]);
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  const onPageChange = (newPage) => {
-    dispatch(setCurrentPage(newPage));
-  };
 
   return (
     <>
@@ -45,7 +36,7 @@ const Home = () => {
         <div className='lg:mx-8 mx-4 flex flex-col mt-10 gap-4'>
           <h1 className='font text-white text-3xl'>Our Exclusive Pics</h1>
           <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center my-4'>
-            {products && products.slice(startIndex, endIndex).map((product) => (
+            {products && products.slice(0, 6).map((product) => (
               <div key={product.id}>
                 <ProductCard product={product} />
               </div>
@@ -55,20 +46,12 @@ const Home = () => {
         <div className="pagination font-semibold flex justify-center text-lg text-orange-600 font2 gap-3 py-4 mt-3">
           <button
             className='border-2 border-orange-950/[5] p-1 rounded-sm transform transition duration-300 hover:scale-110'
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
+            onClick={() => navigate("/brownies")}
           >
-            Previous
-          </button>
-          <span className='border-2 border-orange-950/[5] p-1 px-2 rounded-sm'> {currentPage}</span>
-          <button
-            className='border-2 border-orange-950/[5] p-1 px-3 rounded-sm transform transition duration-300 hover:scale-110'
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={endIndex >= products.length}
-          >
-            Next
+            Load more
           </button>
         </div>
+        
       </div>
     </>
   )

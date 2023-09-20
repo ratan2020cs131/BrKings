@@ -6,7 +6,7 @@ import { closeLog, signup, loggedin } from '../../Redux/Slices/UserSlice';
 import { useDispatch } from 'react-redux';
 import CancelIcon from '@mui/icons-material/Cancel';
 import "./Login.css";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 
 
@@ -50,7 +50,10 @@ const Login = () => {
       navigate("/");
     }
     else {
-      if (res.status === 404) { navigate("/signup"); }
+      if (res.status === 404) {
+        dispatch(signup());
+        dispatch(closeLog());
+      }
       // window.alert(data.message);
       toast.error(data.message);
     }
@@ -60,7 +63,7 @@ const Login = () => {
     <>
       <div className='flex justify-center main'>
         <div className="flex flex-col justify-center  flex-wrap bgimage">
-          <button onClick={() => dispatch(closeLog()) }>
+          <button onClick={() => dispatch(closeLog())}>
             <CancelIcon className='closeBtn' />
           </button>
           <div className="logo">
