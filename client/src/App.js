@@ -19,7 +19,7 @@ const Routing = () => {
     <>
       <Routes>
         <Route element={<ProtectedRoute/>}>
-        <Route path="/Cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart />} />
         </Route>
         <Route exact path="/" element={<Home />} />
         <Route path="/brownies" element={<Brownies />} />

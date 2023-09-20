@@ -45,7 +45,6 @@ const Login = () => {
       // window.alert(data.message);
       toast.success(data.message);
       dispatch(closeLog());
-      dispatch(loggedin());
       dispatch(loggedin(data.user.name));
       navigate("/");
     }

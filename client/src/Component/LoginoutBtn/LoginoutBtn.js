@@ -1,5 +1,5 @@
 import React from 'react'
-import { selectUser, login, logout } from '../../Redux/Slices/UserSlice';
+import {login, logout, selectUser } from '../../Redux/Slices/UserSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,9 +28,10 @@ const LoginoutBtn = () => {
         });
     }
 
+
     return (
         <>
-            {user.isLoggedin ?
+            {user ?
                 (<div className='btn text-black font-semibold bg-orange-600 lg:mx-4 transform transition duration-300 hover:scale-110'>
                     <button onClick={logoutHandler} >
                         Logout
