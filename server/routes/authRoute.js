@@ -23,6 +23,7 @@ router.post("/forget-password", fpController);
 //RESET PASSWORD
 router.get("/reset-password", rpController);
 router.post("/reset-password", upController);
+
 //TEST ROUTES
 router.get("/test", requireSignIn, isAdmin, testController);
 

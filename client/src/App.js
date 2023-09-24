@@ -13,13 +13,11 @@ import ProtectedRoute from "./Component/ProtectedRoute";
 import Brownies from "./Component/Header/Brownies";
 
 const Routing = () => {
-
-
   return (
     <>
       <Routes>
-        <Route element={<ProtectedRoute/>}>
-        <Route path="/Cart" element={<Cart />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/Cart" element={<Cart />} />
         </Route>
         <Route exact path="/" element={<Home />} />
         <Route path="/brownies" element={<Brownies />} />
@@ -30,13 +28,10 @@ const Routing = () => {
         <Route path="/brownies/Product/:id" element={<ProductPage />} />
       </Routes>
     </>
-  )
-}
-
+  );
+};
 
 function App() {
-
-
   return (
     <div className="App">
       <Navbar />

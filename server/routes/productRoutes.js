@@ -8,6 +8,10 @@ import {
   deleteProductController,
   updateProductController,
   filterProductController,
+  addCommentController,
+  getCommentsController,
+  searchProductController,
+  deleteCommentController,
 } from "../controllers/productController.js";
 import formidable from "express-formidable";
 
@@ -50,5 +54,22 @@ router.delete(
 
 //FILTER PRODUCT
 router.post("/product-filters", filterProductController);
+
+//SEARCH PRODUCT
+router.get("/search-product/:keyword", searchProductController);
+
+//ADD COMMENT
+router.post("/add-comment/:pid/comments", requireSignIn, addCommentController);
+
+//GET COMMENTS
+router.get("/get-comments/:pid/comments", getCommentsController);
+
+//DELETE COMMENT
+router.delete(
+  "/delete-comment/:pid/comments/:commentId",
+  requireSignIn,
+  isAdmin,
+  deleteCommentController
+);
 
 export default router;
