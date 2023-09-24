@@ -1,9 +1,9 @@
-import React from 'react'
-import '../app.scss';
+import React from "react";
+import "../app.scss";
 const Footer = () => {
   return (
     <div>
-        <footer className="bg-orange-500">
+      <footer className="bg-orange-500">
         <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
           <nav className="flex flex-wrap mt-4 justify-center -mx-5 -my-2">
             <div className="px-5 py-2">
@@ -70,7 +70,7 @@ const Footer = () => {
                 ></path>
               </svg>
             </a>
-            
+
             <a href="#" className="text-black-400 hover:text-black-500">
               <span className="sr-only">GitHub</span>
               <svg
@@ -88,13 +88,13 @@ const Footer = () => {
             </a>
           </div>
           <div className="mt-4 text-4xl flex flex-col gap-3 lg:flex-row lg:text-9xl lg:justify-center leading-6 text-center text-white ft-name">
-            <span>Brownie</span> 
+            <span>Brownie</span>
             <span>King</span>
           </div>
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

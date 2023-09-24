@@ -195,3 +195,107 @@ export const filterProductController = async (req, res) => {
     });
   }
 };
+
+export const searchProductController = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const result = await productModel
+      .find({
+        $or: [
+          { name: { regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      error,
+      message: "Error in search product",
+    });
+  }
+};
+
+export const addCommentController = async (req, res) => {
+  try {
+    const prodId = req.params.pid;
+    const product = await productModel.findById(prodId);
+    if (!product) {
+      return res.status(404).send({ message: "Product not found" });
+    }
+    const newComment = {
+      text: req.body.text,
+      user: req.user._id,
+    };
+    product.comments.push(newComment);
+    await product.save();
+    res.status(201).send({
+      success: true,
+      message: "Comment added successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      meesage: "Error while adding comment",
+    });
+  }
+};
+
+export const getCommentsController = async (req, res) => {
+  try {
+    const prodId = req.params.pid;
+    const product = await productModel.findById(prodId);
+    if (!product) {
+      return res.status(404).send({ message: "No such product exists" });
+    }
+    res.json({ comments: product.comments });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while fetching products",
+    });
+  }
+};
+
+export const deleteCommentController = async (req, res) => {
+  try {
+    const productId = req.params.pid;
+    const commentId = req.params.commentId;
+    const product = await productModel.findById(productId);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+    const commentIndex = product.comments.findIndex(
+      (comment) => comment._id.toString() === commentId
+    );
+    if (commentIndex === -1) {
+      return res.status(404).json({
+        success: false,
+        message: "Comment not found",
+      });
+    }
+    product.comments.splice(commentIndex, 1);
+    await product.save();
+
+    res.status(200).send({
+      success: true,
+      message: "Comment deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      error,
+      message: "Error while deleting comment",
+    });
+  }
+};

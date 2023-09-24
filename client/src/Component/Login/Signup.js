@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Logo from "../../Images/BrownieKing.png";
 import Cookie from "../../Images/brauni-ai (1) 1.png";
 import { Link } from "react-router-dom";
-import { login,closeSign } from '../../Redux/Slices/UserSlice';
-import { useDispatch } from 'react-redux';
+import { login, closeSign } from "../../Redux/Slices/UserSlice";
+import { useDispatch } from "react-redux";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -33,11 +33,15 @@ const Signup = () => {
     const res = await fetch("/api/v1/auth/register", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name, email, phone, password, address
-      })
+        name,
+        email,
+        phone,
+        password,
+        address,
+      }),
     });
     const data = await res.json();
 

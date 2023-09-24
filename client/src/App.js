@@ -14,13 +14,11 @@ import Brownies from "./Component/Header/Brownies";
 import Addcat from "./pages/AddCatg";
 
 const Routing = () => {
-
-
   return (
     <>
       <Routes>
-        <Route element={<ProtectedRoute/>}>
-        <Route path="/cart" element={<Cart />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/Cart" element={<Cart />} />
         </Route>
         <Route path="/addCat" element={<Addcat />} />
         <Route exact path="/" element={<Home />} />
@@ -32,13 +30,10 @@ const Routing = () => {
         <Route path="/brownies/Product/:id" element={<ProductPage />} />
       </Routes>
     </>
-  )
-}
-
+  );
+};
 
 function App() {
-
-
   return (
     <div className="App">
       <Navbar />
