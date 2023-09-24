@@ -11,6 +11,7 @@ import ForgotPass from "./Component/ForgotPass";
 import ResetPass from "./Component/ResetPass";
 import ProtectedRoute from "./Component/ProtectedRoute";
 import Brownies from "./Component/Header/Brownies";
+import Addcat from "./pages/AddCatg";
 
 const Routing = () => {
 
@@ -21,6 +22,7 @@ const Routing = () => {
         <Route element={<ProtectedRoute/>}>
         <Route path="/cart" element={<Cart />} />
         </Route>
+        <Route path="/addCat" element={<Addcat />} />
         <Route exact path="/" element={<Home />} />
         <Route path="/brownies" element={<Brownies />} />
         <Route path="*" element={<Error />} />

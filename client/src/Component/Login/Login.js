@@ -14,6 +14,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [token,setToken] =  useState()
   const [user, setUser] = useState({
     email: '', password: ''
   })
@@ -40,11 +41,12 @@ const Login = () => {
       })
     });
     const data = await res.json();
-
     if (res.status === 200) {
       // window.alert(data.message);
+      localStorage.setItem("token", JSON.stringify(data.token));
       toast.success(data.message);
       dispatch(closeLog());
+      dispatch(loggedin());
       dispatch(loggedin(data.user.name));
       navigate("/");
     }

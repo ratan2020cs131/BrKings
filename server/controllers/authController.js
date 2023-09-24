@@ -116,12 +116,7 @@ export const loginController = async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.jwt_secret, {
       expiresIn: "7d",
     });
-    res
-      .cookie("jwtoken", token, {
-        expires: new Date(Date.now() + 86000),
-        httpOnly: true,
-      })
-      .status(200)
+    res.status(200)
       .send({
         success: true,
         message: "Login Successfully",
@@ -224,10 +219,20 @@ export const testController = (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res
-    .cookie("jwtoken", null, {
-      expires: new Date(Date.now() + 86000),
-      httpOnly: true,
-    })
-    .sendStatus(200);
+  try {
+    // Assuming you're using a token for authentication (in headers or body)
+    const token = req.headers.authorization;
+
+    // Find the user by the token and update the token to null
+    const updatedUser = await userModel.findOneAndUpdate({ token }, { $set: { token: null } }, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found or token invalid.' });
+    }
+
+    res.status(200).json({ message: 'Logout successful.' });
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ message: 'An error occurred during logout.' });
+  }
 };
