@@ -3,6 +3,7 @@ import userModel from "../models/userModel.js";
 
 export const requireSignIn = async (req, res, next) => {
   const token = req.headers.authorization;
+
   if (!token) {
     return res.status(401).send({
       success: false,
@@ -10,7 +11,10 @@ export const requireSignIn = async (req, res, next) => {
     });
   }
   try {
-    const decode = jwt.verify(token, process.env.jwt_secret);
+    const decode = jwt.verify(
+      req.headers.authorization,
+      process.env.jwt_secret
+    );
     req.user = decode;
     next();
   } catch (error) {

@@ -225,11 +225,21 @@ export const testController = (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {
-  res
-    .cookie("jwtoken", null, {
-      expires: new Date(Date.now() + 86000),
-      httpOnly: true,
-    })
-    .sendStatus(200);
+export const logoutController = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const user = await userModel.findById(userId);
+    user.token = "";
+    await user.save();
+    res
+      .clearCookie("jwtoken", { httpOnly: true })
+      .status(200)
+      .send({ success: true, message: "Logout successful" });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error during logout",
+      error,
+    });
+  }
 };
