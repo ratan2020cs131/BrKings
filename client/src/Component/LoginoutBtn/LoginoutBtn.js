@@ -33,7 +33,7 @@ const LoginoutBtn = () => {
     // console.log("hello")
     useEffect(() => {
         if (!token) {
-            login();
+            dispatch(login());
         }
     }, [])
 

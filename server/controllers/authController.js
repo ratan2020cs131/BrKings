@@ -118,12 +118,16 @@ export const loginController = async (req, res) => {
     });
     user.token = token;
     await user.save();
+<<<<<<< Updated upstream
     res
       .cookie("jwtoken", token, {
         expires: new Date(Date.now() + 86000),
         httpOnly: true,
       })
       .status(200)
+=======
+    res.status(200)
+>>>>>>> Stashed changes
       .send({
         success: true,
         message: "Login Successfully",

@@ -46,9 +46,9 @@ const Signup = () => {
     const data = await res.json();
 
     if (res.status === 422 || !data || res.status === 500) {
-      toast.success(data.message);
-    } else {
       toast.error(data.message);
+    } else {
+      toast.success(data.message);
       dispatch(login());
       dispatch(closeSign());
     }
