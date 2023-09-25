@@ -225,21 +225,21 @@ export const testController = (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {
+export const logoutController = async (req, res) => {
   try {
-    // Assuming you're using a token for authentication (in headers or body)
-    const token = req.headers.authorization;
-
-    // Find the user by the token and update the token to null
-    const updatedUser = await userModel.findOneAndUpdate({ token }, { $set: { token: null } }, { new: true });
-
-    if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found or token invalid.' });
-    }
-
-    res.status(200).json({ message: 'Logout successful.' });
+    const userId = req.user._id;
+    const user = await userModel.findById(userId);
+    user.token = "";
+    await user.save();
+    res
+      .clearCookie("jwtoken", { httpOnly: true })
+      .status(200)
+      .send({ success: true, message: "Logout successful" });
   } catch (error) {
-    console.error('Error during logout:', error);
-    res.status(500).json({ message: 'An error occurred during logout.' });
+    res.status(500).send({
+      success: false,
+      message: "Error during logout",
+      error,
+    });
   }
 };
