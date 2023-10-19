@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { config } from "../../utils/axiosconfig";
+import axiosToken from "../../utils/axiosconfig";
 import { base_url } from "../../utils/baseUrl";
 import { toast } from "react-toastify";
 
@@ -22,23 +22,7 @@ const signin = async (user) => {
 
 const logout = async () => {
   try {
-    const getTokenFromLocalStorage = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : null;
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${
-          getTokenFromLocalStorage !== null
-            ? getTokenFromLocalStorage.token
-            : ""
-        }`,
-        Accept: "application/json",
-      },
-    };
-
-    console.log("reached logout api", config);
-    const response = await axios.get(`${base_url}user/logout`, config);
+    const response = await axiosToken.get(`${base_url}user/logout`);
     window.localStorage.clear("user");
     console.log("status", response.status);
 
