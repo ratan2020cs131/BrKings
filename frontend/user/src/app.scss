@@ -1,0 +1,54 @@
+.errorPage {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90.44deg, #c96b19 0.27%, #b45502 31.19%, #754716 87.28%);
+  }
+  
+  .errorPage h1 {
+    position: absolute;
+    z-index: -40;
+    font-size: 17em;
+    filter: invert(1);
+    font-weight: 900;
+  }
+  
+  .err-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .err-content h3{
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  .ft-name {
+    font-family: 'Bungee Outline', cursive;
+    letter-spacing: 1rem;
+  }
+
+  .active{
+    border-bottom: 3px solid #dd6800;
+    color: #DD6800;
+  }
+
+  .forgotPass{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .font2 {
+    font-family: "Love Ya Like A Sister", cursive;
+  }
+  .font3{
+      font-family: "Dancing Script", cursive;
+  }
+
+  .bgPage{
+    background: linear-gradient(90.44deg, #c96b19 0.27%, #b45502 31.19%, #754716 87.28%);
+  }
