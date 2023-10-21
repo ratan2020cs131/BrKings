@@ -134,8 +134,8 @@ const MainLayout = () => {
                 aria-expanded="false"
               >
                 {/* {console.log(user)} */}
-                <h5 className="mb-0">{user.user.firstname}</h5>
-                <p className="mb-0">{user.user.email}</p>
+                <h5 className="mb-0">{user.user?.name}</h5>
+                <p className="mb-0">{user.user?.email}</p>
               </div>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>

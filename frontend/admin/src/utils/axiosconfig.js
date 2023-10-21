@@ -1,12 +1,12 @@
-const getTokenFromLocalStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
-  : null;
+import axios from 'axios';
 
-export const config = {
-  headers: {
-    Authorization: `Bearer ${
-      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-    }`,
-    Accept: "application/json",
-  },
-};
+const axiosToken = axios.create({});
+
+axiosToken.interceptors.request.use((req)=>{
+  const getTokenFromLocalStorage = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+  const token = getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : "";
+  req.headers.Authorization=`Bearer ${token}`;
+  return req;
+})
+
+export default axiosToken;

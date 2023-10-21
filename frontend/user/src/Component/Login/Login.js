@@ -35,10 +35,6 @@ const Login = () => {
     dispatch(login(values));
   };
 
-  useEffect(() => {
-    console.log("loading", auth.isLoading);
-  }, [auth.isLoading]);
-
   return (
     <>
       <div className="flex justify-center main">

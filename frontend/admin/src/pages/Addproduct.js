@@ -82,13 +82,7 @@ const Addproduct = () => {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
-  // const coloropt = [];
-  // colorState.forEach((i) => {
-  //   coloropt.push({
-  //     label: i.title,
-  //     value: i._id,
-  //   });
-  // });
+  
   const img = [];
   imgState.forEach((i) => {
     img.push({
@@ -98,9 +92,10 @@ const Addproduct = () => {
   });
 
   useEffect(() => {
+    console.log("img")
     // formik.values.color = color ? color : " ";
     formik.values.images = img;
-  }, [img]);
+  }, [dispatch]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -131,10 +126,7 @@ const Addproduct = () => {
       }
     },
   });
-  // const handleColors = (e) => {
-  //   setColor(e);
-  //   console.log(color);
-  // };
+  
   return (
     <div>
       <h3 className="mb-4 title">
@@ -178,26 +170,7 @@ const Addproduct = () => {
           <div className="error">
             {formik.touched.price && formik.errors.price}
           </div>
-          {/* <select
-            name="brand"
-            onChange={formik.handleChange("brand")}
-            onBlur={formik.handleBlur("brand")}
-            value={formik.values.brand}
-            className="form-control py-3 mb-3"
-            id=""
-          >
-            <option value="">Select Brand</option>
-            {brandState.map((i, j) => {
-              return (
-                <option key={j} value={i.title}>
-                  {i.title}
-                </option>
-              );
-            })}
-          </select> */}
-          {/* <div className="error">
-            {formik.touched.brand && formik.errors.brand}
-          </div> */}
+          
           <select
             name="category"
             onChange={formik.handleChange("category")}
