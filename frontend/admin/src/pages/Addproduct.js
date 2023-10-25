@@ -76,7 +76,7 @@ const Addproduct = () => {
     }
     if (isSuccess && updatedProduct) {
       toast.success("Product Updated Successfullly!");
-      navigate("/admin/list-category");
+      navigate("/admin/list-product");
     }
     if (isError) {
       toast.error("Something Went Wrong!");
@@ -84,18 +84,11 @@ const Addproduct = () => {
   }, [isSuccess, isError, isLoading]);
   
   const img = [];
-  imgState.forEach((i) => {
-    img.push({
-      public_id: i.public_id,
-      url: i.url,
-    });
-  });
 
   useEffect(() => {
-    console.log("img")
     // formik.values.color = color ? color : " ";
     formik.values.images = img;
-  }, [dispatch]);
+  }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -108,24 +101,38 @@ const Addproduct = () => {
       tags: "",
       // color: "",
       quantity: savedQuantity || "",
-      images: "",
+      images: [],
     },
     validationSchema: schema,
+
     onSubmit: (values) => {
+      imgState.forEach((i) => {
+        img.push({
+          public_id: i.public_id,
+          url: i.url,
+        });
+      });
+      formik.values.images = img;
+      console.log("values",values);
+
+
       if (getPId !== undefined) {
         const data = { id: getPId, pData: values };
         dispatch(updateAProduct(data));
         dispatch(resetState());
       } else {
+        console.log("adprdcts",values)
         dispatch(createProducts(values));
         formik.resetForm();
         // setColor(null);
+        // setImages(null);
         setTimeout(() => {
           dispatch(resetState());
         }, 3000);
       }
     },
   });
+
   
   return (
     <div>

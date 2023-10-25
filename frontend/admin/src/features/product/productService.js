@@ -1,7 +1,6 @@
 import axios from "axios";
 import axiosToken from "../../utils/axiosconfig";
 import { base_url } from "../../utils/baseUrl";
-import { toast } from "react-toastify";
 
 const getProducts = async () => {
   const response = await axios.get(`${base_url}product/`);

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProductByIdAsync, selectProductById, selectProductSatus } from "../../Redux/Slices/itemSlice";
 import LikeProduct from '../ProductCard/LikeProduct';
+import { addToCart } from '../../Redux/Slices/Cart';
 
 
 
@@ -107,7 +108,8 @@ const ProductPage = () => {
                     </button>
                   </div>
                   <button className='mt-3 rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/2
-              transform transition duration-300 hover:scale-110'>
+              transform transition duration-300 hover:scale-110'
+              onClick={dispatch(addToCart(params.id))}>
                     Add to Cart
                   </button>
                   <p className='font text-white lg:text-2xl lg:mt-6 my-3 lg:px-4'>{product.description}</p>

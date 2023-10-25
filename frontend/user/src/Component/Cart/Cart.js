@@ -1,121 +1,138 @@
-// Cart.js
-
-import { React, useState, useEffect } from 'react';
-import "./Cart.css";
-import CartProduct from "./CartProduct";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import Breadcrumbs from "../../utils/Breadcrumbs";
+import { resetCart } from "../../Redux/Slices/Cart";
 import EmptyCart from "../../Images/Free market or Amazon.jpeg";
-
-const fetchProducts = () => {
-    // Simulating API call to fetch products
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve([
-                { id: 1, name: 'Product 1', price: 19.99 },
-                { id: 2, name: 'Product 2', price: 29.99 },
-                { id: 3, name: 'Product 3', price: 39.99 },
-                // Add more products here
-            ]);
-        }, 1500); // Simulating a delay of 1.5 seconds
-    });
-};
-
-
-const ShoppingCart = () => {
-
-
-    const [loading, setLoading] = useState(true);
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        fetchProducts().then((data) => {
-            setProducts(data);
-            setLoading(false);
-        });
-    }, []);
-
-
-
-    const totalAmount = 0;
-    const navigation = useNavigate()
-    const [isEmpty, setisEmpty] = useState(false);
-    // setisEmpty(true)
-
-    if (isEmpty) {
-        return (
-            <div className='container'>
-                <div className='subContainer'>
-                    <img src={EmptyCart} alt='Empty Cart' />
-                    <h2>Your Cart is Empty</h2>
-                    <p>Looks like you haven't made any choice yet</p>
-                    <button type="button" className="mt-4 rounded-md bg-rose-950 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={() => navigation("/")}>Back to Home Page</button>
-                </div>
-            </div>
-        )
-    }
-    else {
-        return (
-            <div className='header'>
-                <div className=" cart-container">
-                    <ul className="cart-items">
-                        <li>
-                            <div id='itemHeading'>
-                                <p style={{ flex: 2 }}>Product</p>
-                                <p style={{ flex: 1 }}>Quantity</p>
-                                <p>Total</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                {loading ? (
-                                    <div className="text-center">Loading...</div>
-                                ) : (
-                                    <div className="grid gap-4">
-                                        {products.map((product) => (
-                                            <div key={product.id} className="border p-4 rounded-lg shadow-md">
-                                                <h2 className="text-xl font-bold">{product.name}</h2>
-                                                <p className="text-gray-600">{`$${product.price.toFixed(2)}`}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div className='flex flex-row mt-3 justify-center'>
-                    <button
-                        className=" rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/3"
-                        onClick={() => navigation("/")}>
-                        Continue shopping
-                    </button>
-                    <button
-                        className=" rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/3"
-                        onClick={() => navigation("")}>
-                        Checkout
-                    </button>
-                    <div className=" cart-total text-4xl font">Total: ₹{totalAmount}</div>
-                </div>
-            </div>
-        )
-    }
-
-}
-
-
+import CartProduct from "./CartProduct";
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.cart.products);
+  const [totalAmt, setTotalAmt] = useState("");
+  const [shippingCharge, setShippingCharge] = useState("");
+  useEffect(() => {
+    let price = 0;
+    products.map((item) => {
+      price += item.price * item.quantity;
+      return price;
+    });
+    setTotalAmt(price);
+  }, [products]);
+  useEffect(() => {
+    if (totalAmt <= 200) {
+      setShippingCharge(30);
+    } else if (totalAmt <= 400) {
+      setShippingCharge(25);
+    } else if (totalAmt > 401) {
+      setShippingCharge(20);
+    }
+  }, [totalAmt]);
+  return (
+    <div className="max-w-container mx-auto px-4 bg-black">
+      <Breadcrumbs title="Cart" />
+      {products.length > 0 ? (
+        <div className="pb-20">
+          <div className="w-full h-20 bg-[#F5F7F7] text-primeColor hidden lgl:grid grid-cols-5 place-content-center px-6 text-lg font-titleFont font-semibold">
+            <h2 className="col-span-2">Product</h2>
+            <h2>Price</h2>
+            <h2>Quantity</h2>
+            <h2>Sub Total</h2>
+          </div>
+          <div className="mt-5">
+            {products.map((item) => (
+              <div key={item._id}>
+                <CartProduct item={item} />
+              </div>
+            ))}
+          </div>
 
+          <button
+            onClick={() => dispatch(resetCart())}
+            className="py-2 px-10 bg-red-500 text-white font-semibold uppercase mb-4 hover:bg-red-700 duration-300"
+          >
+            Reset cart
+          </button>
 
-    return (
-        <div className='cart'>
-            <div id='header'>
-                <p>YOUR CART</p>
+          <div className="flex flex-col mdl:flex-row justify-between border py-4 px-4 items-center gap-2 mdl:gap-0">
+            <div className="flex items-center gap-4">
+              <input
+                className="w-44 mdl:w-52 h-8 px-4 border text-primeColor text-sm outline-none border-gray-400"
+                type="text"
+                placeholder="Coupon Number"
+              />
+              <p className="text-sm mdl:text-base font-semibold">
+                Apply Coupon
+              </p>
             </div>
-            <ShoppingCart />
+            <p className="text-lg font-semibold">Update Cart</p>
+          </div>
+          <div className="max-w-7xl gap-4 flex justify-end mt-4">
+            <div className="w-96 flex flex-col gap-4">
+              <h1 className="text-2xl font-semibold text-right">Cart totals</h1>
+              <div>
+                <p className="flex items-center justify-between border-[1px] border-gray-400 border-b-0 py-1.5 text-lg px-4 font-medium">
+                  Subtotal
+                  <span className="font-semibold tracking-wide font-titleFont">
+                    ${totalAmt}
+                  </span>
+                </p>
+                <p className="flex items-center justify-between border-[1px] border-gray-400 border-b-0 py-1.5 text-lg px-4 font-medium">
+                  Shipping Charge
+                  <span className="font-semibold tracking-wide font-titleFont">
+                    ${shippingCharge}
+                  </span>
+                </p>
+                <p className="flex items-center justify-between border-[1px] border-gray-400 py-1.5 text-lg px-4 font-medium">
+                  Total
+                  <span className="font-bold tracking-wide text-lg font-titleFont">
+                    ${totalAmt + shippingCharge}
+                  </span>
+                </p>
+              </div>
+              <div className="flex justify-end">
+                <Link to="/paymentgateway">
+                  <button className="w-52 h-10 bg-primeColor text-white hover:bg-black duration-300">
+                    Proceed to Checkout
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      ) : (
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col mdl:flex-row justify-center items-center gap-4 pb-20"
+        >
+          <div>
+            <img
+              className="w-80 rounded-lg p-4 mx-auto"
+              src={EmptyCart}
+              alt="emptyCart"
+            />
+          </div>
+          <div className="max-w-[500px] p-4 py-8  flex gap-4 flex-col items-center rounded-md bg-black shadow-lg">
+            <h1 className="font-titleFont text-xl font-bold uppercase text-white">
+              Your Cart feels lonely.
+            </h1>
+            <p className="text-sm text-center px-10 -mt-2 text-white">
+              Your Shopping cart lives to serve. Give it purpose - fill it with
+              sweets, Brownies, Cakes etc. and make it happy.
+            </p>
+            <Link to="/shop">
+              <button className="bg-primeColor rounded-md cursor-pointer hover:bg-orange-600 active:bg-orange-900 px-8 py-2 font-titleFont font-semibold text-lg text-orange-300 hover:text-black duration-300">
+                Continue Shopping
+              </button>
+            </Link>
+          </div>
+        </motion.div>
+      )}
+    </div>
+  );
 };
 
 export default Cart;
