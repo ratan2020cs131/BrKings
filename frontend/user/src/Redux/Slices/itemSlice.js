@@ -11,17 +11,6 @@ export const fetchProducts = createAsyncThunk("items/fetchItems", async () => {
   }
 });
 
-// export const signin = createAsyncThunk(
-//   "auth/signin",
-//   async (userData, thunkAPI) => {
-//     try {
-//       return await authService.signin(userData);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
-
 export const fetchProductByIdAsync = createAsyncThunk(
   "product/fetchProductById",
   async (id) => {

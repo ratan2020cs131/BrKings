@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Breadcrumbs from "../../utils/Breadcrumbs";
-import { resetCart } from "../../Redux/Slices/Cart";
 import EmptyCart from "../../Images/Free market or Amazon.jpeg";
 import CartProduct from "./CartProduct";
 
