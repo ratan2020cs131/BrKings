@@ -1,100 +1,76 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import EmptyCart from "../../Images/Free market or Amazon.jpeg";
+// import CartPro from "../../Redux/API/items.json";
 import CartProduct from "./CartProduct";
+import "./Cart.css";
+import {
+  getCartTotal,
+} from "../../Redux/Slices/Cart";
 
 const Cart = () => {
+  const { cart, totalQuantity, totalPrice } = useSelector(
+    (state) => state.cart
+  );
+
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.cart.products);
-  const [totalAmt, setTotalAmt] = useState("");
-  const [shippingCharge, setShippingCharge] = useState("");
+
   useEffect(() => {
-    let price = 0;
-    products.map((item) => {
-      price += item.price * item.quantity;
-      return price;
-    });
-    setTotalAmt(price);
-  }, [products]);
-  useEffect(() => {
-    if (totalAmt <= 200) {
-      setShippingCharge(30);
-    } else if (totalAmt <= 400) {
-      setShippingCharge(25);
-    } else if (totalAmt > 401) {
-      setShippingCharge(20);
-    }
-  }, [totalAmt]);
+    dispatch(getCartTotal());
+  }, [cart]);
+
   return (
-    <div className="max-w-container mx-auto px-4 bg-black">
-      <Breadcrumbs title="Cart" />
-      {products.length > 0 ? (
-        <div className="pb-20">
-          <div className="w-full h-20 bg-[#F5F7F7] text-primeColor hidden lgl:grid grid-cols-5 place-content-center px-6 text-lg font-titleFont font-semibold">
-            <h2 className="col-span-2">Product</h2>
-            <h2>Price</h2>
-            <h2>Quantity</h2>
-            <h2>Sub Total</h2>
-          </div>
-          <div className="mt-5">
-            {products.map((item) => (
-              <div key={item._id}>
-                <CartProduct item={item} />
+    <div className="max-w-container bg-black ">
+      <div id="header">
+        <p>YOUR CART</p>
+      </div>
+      {cart?.length > 0 ? (
+        <div>
+          <div className="py-2 px-2 bg-black ">
+            <div className="md:flex-row flex-col flex my-4 mx-3">
+              <div className="md:w-[70%] md:pr-3">
+                <div className="px-2 mb-4 flex-col">
+                  <div className=" flex justify-center py-3 border">
+                    <h5 className="mb-0 text-white">
+                      Cart - {cart.length} items
+                    </h5>
+                  </div>
+                  <div className="card-body">
+                    {cart?.map((data) => (
+                      <div key={data.id}>
+                        <CartProduct data={data} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
+              <div className="md:w-[30%] border h-[50%]">
+                <div className="flex flex-col mb-4">
+                  <div className="flex text-white justify-center py-3">
+                    <h5>Summary</h5>
+                  </div>
+                  <div className="border-t px-2 pt-2">
+                    <div className="flex text-white justify-between my-2">
+                      Total Quantity
+                      <span>{totalQuantity}</span>
+                    </div>
 
-          <button
-            onClick={() => dispatch(resetCart())}
-            className="py-2 px-10 bg-red-500 text-white font-semibold uppercase mb-4 hover:bg-red-700 duration-300"
-          >
-            Reset cart
-          </button>
+                    <div className="flex text-white justify-between my-2">
+                      <div>
+                        <strong>Total amount</strong>
+                      </div>
+                      <span>
+                        <strong>₹{totalPrice}</strong>
+                      </span>
+                    </div>
 
-          <div className="flex flex-col mdl:flex-row justify-between border py-4 px-4 items-center gap-2 mdl:gap-0">
-            <div className="flex items-center gap-4">
-              <input
-                className="w-44 mdl:w-52 h-8 px-4 border text-primeColor text-sm outline-none border-gray-400"
-                type="text"
-                placeholder="Coupon Number"
-              />
-              <p className="text-sm mdl:text-base font-semibold">
-                Apply Coupon
-              </p>
-            </div>
-            <p className="text-lg font-semibold">Update Cart</p>
-          </div>
-          <div className="max-w-7xl gap-4 flex justify-end mt-4">
-            <div className="w-96 flex flex-col gap-4">
-              <h1 className="text-2xl font-semibold text-right">Cart totals</h1>
-              <div>
-                <p className="flex items-center justify-between border-[1px] border-gray-400 border-b-0 py-1.5 text-lg px-4 font-medium">
-                  Subtotal
-                  <span className="font-semibold tracking-wide font-titleFont">
-                    ${totalAmt}
-                  </span>
-                </p>
-                <p className="flex items-center justify-between border-[1px] border-gray-400 border-b-0 py-1.5 text-lg px-4 font-medium">
-                  Shipping Charge
-                  <span className="font-semibold tracking-wide font-titleFont">
-                    ${shippingCharge}
-                  </span>
-                </p>
-                <p className="flex items-center justify-between border-[1px] border-gray-400 py-1.5 text-lg px-4 font-medium">
-                  Total
-                  <span className="font-bold tracking-wide text-lg font-titleFont">
-                    ${totalAmt + shippingCharge}
-                  </span>
-                </p>
-              </div>
-              <div className="flex justify-end">
-                <Link to="/paymentgateway">
-                  <button className="w-52 h-10 bg-primeColor text-white hover:bg-black duration-300">
-                    Proceed to Checkout
-                  </button>
-                </Link>
+                    <button className="bg-primeColor border rounded-md cursor-pointer hover:bg-orange-600 active:bg-orange-900 px-9 py-2 font-titleFont font-semibold text-lg text-orange-300 hover:text-black duration-300">
+                      Go to Checkout
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -104,16 +80,16 @@ const Cart = () => {
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4 }}
-          className="flex flex-col mdl:flex-row justify-center items-center gap-4 pb-20"
+          className="flex flex-col mdl:flex-row justify-center items-center gap-2 pb-20 py-10"
         >
           <div>
             <img
-              className="w-80 rounded-lg p-4 mx-auto"
+              className="w-80 rounded-lg p-2 mx-auto"
               src={EmptyCart}
               alt="emptyCart"
             />
           </div>
-          <div className="max-w-[500px] p-4 py-8  flex gap-4 flex-col items-center rounded-md bg-black shadow-lg">
+          <div className="max-w-[500px] p-4 py-4  flex gap-4 flex-col items-center rounded-md bg-black shadow-lg">
             <h1 className="font-titleFont text-xl font-bold uppercase text-white">
               Your Cart feels lonely.
             </h1>

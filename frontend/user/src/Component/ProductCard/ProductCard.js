@@ -29,7 +29,7 @@ const ProductCard = ({ product }) => {
 
                                 <h1 className='flex flex-row gap-2 justify-center items-center'>Eggless <img src={Veg} alt='Veg' /></h1>
                             </div>
-                            <button className="bg-orange-600 tracking-widest hover:bg-orange-500  text-white font-semibold px-4 py-1 rounded-xl text-sm overflow-hidden justify-center flex  whitespace-nowrap  w-full "
+                            <button className="bg-orange-600 tracking-widest hover:bg-orange-500  text-white font-semibold px-4 py-1 md:tracking-normal rounded-xl text-sm overflow-hidden justify-center flex  whitespace-nowrap "
                                 onClick={handleAddToCart}>
                                 Add To Cart
                             </button>

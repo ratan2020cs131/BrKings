@@ -4,9 +4,9 @@ import { base_url } from "../../utils/baseUrl";
 import { toast } from "react-toastify";
 
 const login = async (user) => {
-  console.log("hi",user)
   const response = await axios.post(`${base_url}user/admin-login`, user);
   if (response.data) {
+    // console.log("hi",response.data)
     localStorage.setItem("user", JSON.stringify(response.data));
     toast.success("Login Success");
   }

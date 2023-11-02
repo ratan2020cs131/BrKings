@@ -11,6 +11,8 @@ export const fetchProducts = createAsyncThunk("items/fetchItems", async () => {
   }
 });
 
+
+
 export const fetchProductByIdAsync = createAsyncThunk(
   "product/fetchProductById",
   async (id) => {
