@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const initialState = {
   cart: [],
@@ -11,12 +12,14 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      let find = state.cart.findIndex((item) => item.id === action.payload.id);
-      if (find >= 0) {
+      const find = state.cart.findIndex((item) => item._id === action.payload._id);
+      if (find != -1) {
         state.cart[find].quantity += 1;
       } else {
-        state.cart.push(action.payload);
+        // Always ensure you're pushing an object with a quantity property
+        state.cart.push({ ...action.payload, quantity: 1 });
       }
+      toast.success("Succesfully added to the Cart")
     },
 
     getCartTotal: (state) => {
@@ -41,11 +44,11 @@ const cartSlice = createSlice({
     },
 
     removeItem: (state, action) => {
-      state.cart = state.cart.filter((item) => item.id !== action.payload);
+      state.cart = state.cart.filter((item) => item._id !== action.payload);
     },
     increaseItemQuantity: (state, action) => {
       state.cart = state.cart.map((item) => {
-        if (item.id === action.payload) {
+        if (item._id === action.payload) {
           return { ...item, quantity: item.quantity + 1 };
         }
         return item;
@@ -53,7 +56,7 @@ const cartSlice = createSlice({
     },
     decreaseItemQuantity: (state, action) => {
       state.cart = state.cart.map((item) => {
-        if (item.id === action.payload) {
+        if (item._id === action.payload) {
           return { ...item, quantity: item.quantity - 1 };
         }
         return item;

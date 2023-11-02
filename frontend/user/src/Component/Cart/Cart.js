@@ -39,7 +39,7 @@ const Cart = () => {
                   </div>
                   <div className="card-body">
                     {cart?.map((data) => (
-                      <div key={data.id}>
+                      <div key={data._id}>
                         <CartProduct data={data} />
                       </div>
                     ))}
@@ -66,7 +66,7 @@ const Cart = () => {
                       </span>
                     </div>
 
-                    <button className="bg-primeColor border rounded-md cursor-pointer hover:bg-orange-600 active:bg-orange-900 px-9 py-2 font-titleFont font-semibold text-lg text-orange-300 hover:text-black duration-300">
+                    <button className="bg-primeColor border rounded-md cursor-pointer hover:bg-orange-600 active:bg-orange-900 px-9 py-2 font-titleFont font-semibold text-lg text-orange-400 hover:text-black duration-300">
                       Go to Checkout
                     </button>
                   </div>

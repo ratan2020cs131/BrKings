@@ -3,7 +3,7 @@ import HeroImage from "../../Images/brauni-ai (1) 1.png";
 import "./Home.scss";
 import ProductCard from "../ProductCard/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../../Redux/Slices/itemSlice";
+import { getProducts } from "../../Redux/Slices/itemSlice";
 import { useNavigate } from "react-router";
 import Loader from "../Loader/Loading";
 
@@ -14,7 +14,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(getProducts());
     setLoading(false);
   }, [dispatch]);
 
@@ -47,8 +47,8 @@ const Home = () => {
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center my-4">
               {products &&
                 products.slice(0, 6).map((product) => (
-                  <div key={product.id}>
-                    <ProductCard product={product} />
+                  <div key={product._id}>
+                    <ProductCard product={product} image={product.images[0]} />
                   </div>
                 ))}
             </div>

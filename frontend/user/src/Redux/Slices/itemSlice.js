@@ -1,25 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { fetchProductById } from "../API/ProductApi";
+import productApi from "../API/ProductApi";
 
-export const fetchProducts = createAsyncThunk("items/fetchItems", async () => {
-  try {
-    let { data } = await axios.get("https://fakestoreapi.com/products");
-    return data;
-  } catch (error) {
-    console.log(error);
+export const getProducts = createAsyncThunk(
+  "product/get-products",
+  async (thunkAPI) => {
+    try {
+      return await productApi.getProducts();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
-});
+);
 
 
-
-export const fetchProductByIdAsync = createAsyncThunk(
-  "product/fetchProductById",
-  async (id) => {
-    const response = await fetchProductById(id);
-    // The value we return becomes the `fulfilled` action payload
-
-    return response.data;
+export const getProductByIdAsync = createAsyncThunk(
+  "productCategory/get-product-category",
+  async (id, thunkAPI) => {
+    try {
+      return await productApi.getProduct(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
 );
 
@@ -34,24 +35,24 @@ const itemSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProducts.pending, (state, action) => {
+      .addCase(getProducts.pending, (state, action) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
+      .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.products = action.payload;
         state.error = null;
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(getProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.products = [];
         state.error = action.error.message;
       })
-      .addCase(fetchProductByIdAsync.pending, (state) => {
+      .addCase(getProductByIdAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchProductByIdAsync.fulfilled, (state, action) => {
+      .addCase(getProductByIdAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.selectedProduct = action.payload;
       });

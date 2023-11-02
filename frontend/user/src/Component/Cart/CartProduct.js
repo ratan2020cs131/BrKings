@@ -13,7 +13,7 @@ const CartProduct = ({ data }) => {
   return (
     <div className="w-full grid grid-cols-5 mb-4 border py-2">
       <div className="flex col-span-5 mdl:col-span-2 items-center gap-4 ml-4">
-        <img className="w-32 h-32" src={data.image} alt="productImage" />
+        <img className="w-32 h-32" src={data?.images[0]?.url} alt="productImage" />
         <h1 className="font-titleFont text-white font-semibold">{data.title}</h1>
       </div>
       <div className="col-span-5 mdl:col-span-3 flex items-center justify-between py-4 mdl:py-0 px-4 mdl:px-0 gap-6 mdl:gap-0">
@@ -27,7 +27,7 @@ const CartProduct = ({ data }) => {
           >
             -
           </span>
-          <p className=" text-white">{data.quantity}</p>
+          <p className=" text-white">{data?.quantity}</p>
           <span
             onClick={() => dispatch(increaseItemQuantity({ _id: data._id }))}
             className="w-6 h-6 bg-gray-100 text-2xl  flex items-center justify-center hover:bg-gray-300 cursor-pointer duration-300 border-[1px] border-gray-300 hover:border-gray-300"

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ProductCard from '../ProductCard/ProductCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts } from "../../Redux/Slices/itemSlice";
+import { getProducts } from "../../Redux/Slices/itemSlice";
 import { selectPagination, setCurrentPage } from '../../Redux/Slices/Pagination';
 
 
@@ -13,7 +13,7 @@ const Brownies = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchProducts())
+        dispatch(getProducts())
     }, [dispatch]);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -31,7 +31,7 @@ const Brownies = () => {
                     <h1 className='font text-white mt-8 text-3xl'>Our brownies</h1>
                     <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center my-4'>
                         {products && products.slice(startIndex, endIndex).map((product) => (
-                            <div key={product.id}>
+                            <div key={product._id}>
                                 <ProductCard product={product} />
                             </div>
                         ))}
