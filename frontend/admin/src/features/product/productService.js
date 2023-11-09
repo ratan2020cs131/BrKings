@@ -8,7 +8,7 @@ const getProducts = async () => {
   return response.data;
 };
 const createProduct = async (product) => {
-  console.log(product)
+  console.log(product);
   const response = await axiosToken.post(`${base_url}product/`, product);
 
   return response.data;
@@ -25,19 +25,12 @@ const deleteProduct = async (id) => {
 
   return response.data;
 };
-const updateProduct = async (id) => {
-  console.log(id);
-  const response = await axiosToken.put(
-    `${base_url}product/${id.id}`,
-    { title: id.pData.title,
-    description: id.pData.description,
-    
-   }
-  );
+const updateProduct = async (updateData) => {
+  console.log(updateData);
+  const response = await axiosToken.put(`${base_url}product/${updateData.id}`, updateData.pData);
 
   return response.data;
 };
-
 
 const productService = {
   getProducts,

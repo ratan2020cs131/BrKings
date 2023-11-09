@@ -8,7 +8,6 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../features/pcategory/pcategorySlice";
-// import { getColors } from "../features/color/colorSlice";
 // import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/upload/uploadSlice";
@@ -24,10 +23,6 @@ let schema = yup.object().shape({
   price: yup.number().required("Price is Required"),
   category: yup.string().required("Category is Required"),
   tags: yup.string().required("Tag is Required"),
-  // color: yup
-  //   .array()
-  //   .min(1, "Pick at least one color")
-  //   .required("Color is Required"),
   quantity: yup.number().required("Quantity is Required"),
 });
 
@@ -36,12 +31,8 @@ const Addproduct = () => {
   const dispatch = useDispatch();
   const getPId = location.pathname.split("/")[3];
   const navigate = useNavigate();
-  // const [color, setColor] = useState([]);
   const [images, setImages] = useState([]);
-  // console.log(color);
-   // const brandState = useSelector((state) => state.brand.brands);
    const catState = useSelector((state) => state.pCategory.pCategories);
-   // const colorState = useSelector((state) => state.color.colors);
    const imgState = useSelector((state) => state.upload.images);
    const newProduct = useSelector((state) => state.product);
    const {
@@ -53,6 +44,7 @@ const Addproduct = () => {
      savedDescription,
      savedPrice,
      savedCategory,
+     savedTags,
      savedQuantity,
      updatedProduct,
    } = newProduct;
@@ -86,7 +78,6 @@ const Addproduct = () => {
   const img = [];
 
   useEffect(() => {
-    // formik.values.color = color ? color : " ";
     formik.values.images = img;
   }, []);
 
@@ -96,10 +87,8 @@ const Addproduct = () => {
       title: savedTitle || "",
       description: savedDescription || "",
       price: savedPrice || "",
-      // brand: "",
       category: savedCategory || "",
-      tags: "",
-      // color: "",
+      tags: savedTags || "",
       quantity: savedQuantity || "",
       images: [],
     },
@@ -113,19 +102,22 @@ const Addproduct = () => {
         });
       });
       formik.values.images = img;
-      console.log("values",values);
+      // console.log("values",values);
 
 
       if (getPId !== undefined) {
-        const data = { id: getPId, pData: values };
-        dispatch(updateAProduct(data));
+        const updateData = {
+          id: getPId,
+          pData: values,
+        };
+        console.log("aaajaaaa",getPId,"data",updateData);
+        dispatch(updateAProduct(updateData));
         dispatch(resetState());
       } else {
         console.log("adprdcts",values)
         dispatch(createProducts(values));
         formik.resetForm();
-        // setColor(null);
-        // setImages(null);
+        console.log("values",values)
         setTimeout(() => {
           dispatch(resetState());
         }, 3000);
@@ -217,18 +209,6 @@ const Addproduct = () => {
             {formik.touched.tags && formik.errors.tags}
           </div>
 
-          {/* <Select
-            mode="multiple"
-            allowClear
-            className="w-100"
-            // placeholder="Select colors"
-            defaultValue={color}
-            onChange={(i) => handleColors(i)}
-            options={coloropt}
-          /> */}
-          {/* <div className="error">
-            {formik.touched.color && formik.errors.color}
-          </div> */}
           <CustomInput
             type="number"
             label="Enter Product Quantity"

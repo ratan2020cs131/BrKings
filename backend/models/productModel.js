@@ -30,6 +30,10 @@ var productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    tags: {
+      type: String,
+      required: true,
+    },
     sold: {
       type: Number,
       default: 0,

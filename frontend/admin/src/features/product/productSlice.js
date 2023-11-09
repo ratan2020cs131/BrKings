@@ -23,20 +23,24 @@ export const createProducts = createAsyncThunk(
 );
 export const updateAProduct = createAsyncThunk(
   "product/update-product",
-  async (id, thunkAPI) => {
+  async (updateData, thunkAPI) => {
     try {
-      return await productService.updateProduct(id);
+      return await productService.updateProduct(updateData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      // Extract relevant information from the error
+      const errorMessage = error.response?.data?.message || 'Unknown error';
+
+      // Return only serializable data
+      return { message: errorMessage };
     }
   }
 );
 
 export const deleteAProduct = createAsyncThunk(
   "product/delete-product",
-  async (id, thunkAPI) => {
+  async (updateData, thunkAPI) => {
     try {
-      return await productService.deleteProduct(id);
+      return await productService.deleteProduct(updateData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -106,13 +110,13 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.updateProduct = action.payload;
+        state.updatedProduct = action.payload;
       })
       .addCase(updateAProduct.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.error;
+        state.message = action.payload.message || 'Unknown error';
       })
       .addCase(deleteAProduct.pending, (state) => {
         state.isLoading = true;
@@ -136,11 +140,11 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        console.log(action.payload);
         state.savedTitle = action.payload.title;
         state.savedDescription = action.payload.description;
         state.savedPrice = action.payload.price;
         state.savedCategory = action.payload.category;
+        state.savedTags = action.payload.tags;
         state.savedQuantity = action.payload.quantity;
       })
       .addCase(getAProduct.rejected, (state, action) => {

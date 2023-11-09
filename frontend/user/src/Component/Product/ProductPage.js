@@ -35,12 +35,12 @@ const ProductPage = () => {
     img4: "https://www.tasteofhome.com/wp-content/uploads/2018/01/Cherry-Chocolate-Layer-Cake_exps49124_THCA2916394C11_12_6bC_RMS-1.jpg",
   });
 
-  const [activeImage, setactiveImage] = useState();
-  useEffect(() => {
-    if (product) {
-      setactiveImage(product?.images[0]?.url);
-    }
-  });
+  const [activeImage, setactiveImage] = useState(product?.images[0]?.url);
+  // useEffect(() => {
+  //   if (product) {
+  //     setactiveImage(product?.images[0]?.url);
+  //   }
+  // });
 
   const handleAddToCart = () =>{
     dispatch(addToCart(product))
@@ -51,7 +51,6 @@ const ProductPage = () => {
       {/* {status === "loading" ? <Product /> : null} */}
       {product && (
         <div className="flex flex-col justify-between bg-gray-950 lg:gap-8">
-          {/* {console.log(product)} */}
           <section>
             <div className="flex flex-col gap-2 justify-between lg:flex-row mt-3 mx-4 lg:mx-8">
               <div className="flex flex-col gap-6 lg:w-1/3 lg:h-2/4 lg:mx-2 lg:px-2">
@@ -62,15 +61,15 @@ const ProductPage = () => {
                 />
                 <div className="flex flex-row justify-start gap-2 h-24">
                   <img
-                    src={image.img2}
+                    src={product?.images[0]?.url}
                     alt="image"
-                    onClick={() => setactiveImage(image.img2)}
+                    onClick={() => setactiveImage(product?.images[0]?.url)}
                     className="w-24 h-24 rounded-md cursor-pointer"
                   />
                   <img
-                    src={image.img3}
+                    src={product?.images[1]?.url}
                     alt="image"
-                    onClick={() => setactiveImage(image.img3)}
+                    onClick={() => setactiveImage(product?.images[1]?.url)}
                     className="w-24 h-24 rounded-md cursor-pointer"
                   />
                   <img
