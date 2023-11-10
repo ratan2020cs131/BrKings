@@ -17,9 +17,9 @@ const columns = [
     sorter: (a, b) => a.title.length - b.title.length,
   },
   {
-    title: "Brand",
-    dataIndex: "brand",
-    sorter: (a, b) => a.brand.length - b.brand.length,
+    title: "Tag",
+    dataIndex: "tags",
+    sorter: (a, b) => a.tags.length - b.tags.length,
   },
   {
     title: "Category",
@@ -63,7 +63,7 @@ const Productlist = () => {
     data1.push({
       key: i + 1,
       title: productState[i].title,
-      brand: productState[i].brand,
+      tags: productState[i].tags,
       category: productState[i].category,
       quantity: productState[i].quantity,
       price: `${productState[i].price}`,
@@ -92,7 +92,7 @@ const Productlist = () => {
       dispatch(getProducts());
     }, 100);
   };
-  console.log(data1);
+  // console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Products</h3>

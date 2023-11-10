@@ -44,12 +44,15 @@ export const getOrders = createAsyncThunk(
   }
 );
 export const getOrderByUser = createAsyncThunk(
-  "order/get-order",
-  async (id, thunkAPI) => {
+  "order/get-orders-byId",
+  async (id) => {
     try {
       return await authService.getOrder(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const errorMessage = error.response?.data?.message || 'Unknown error';
+
+      // Return only serializable data
+      return { message: errorMessage };
     }
   }
 );
@@ -121,8 +124,8 @@ export const authSlice = createSlice({
       .addCase(getOrderByUser.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.error;
         state.isLoading = false;
+        state.message = action.payload.message || 'Unknown error';
       });
   },
 });

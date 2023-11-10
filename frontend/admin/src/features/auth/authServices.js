@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 const login = async (user) => {
   const response = await axios.post(`${base_url}user/admin-login`, user);
   if (response.data) {
-    // console.log("hi",response.data)
     localStorage.setItem("user", JSON.stringify(response.data));
     toast.success("Login Success");
   }
@@ -31,11 +30,9 @@ const getOrders = async () => {
   return response.data;
 };
 const getOrder = async (id) => {
-  const response = await axiosToken.post(
-    `${base_url}user/getorderbyuser/${id}`,
-    ""
-  );
+  const response = await axiosToken.post(`${base_url}user/getorderbyuser/${id}`,"");
 
+  console.log("order response",response.data)
   return response.data;
 };
 

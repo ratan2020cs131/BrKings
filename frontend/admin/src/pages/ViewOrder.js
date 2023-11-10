@@ -15,16 +15,8 @@ const columns = [
     dataIndex: "name",
   },
   {
-    title: "Brand",
-    dataIndex: "brand",
-  },
-  {
     title: "Count",
     dataIndex: "count",
-  },
-  {
-    title: "Color",
-    dataIndex: "color",
   },
   {
     title: "Amount",
@@ -48,17 +40,14 @@ const ViewOrder = () => {
   useEffect(() => {
     dispatch(getOrderByUser(userId));
   }, []);
-  const orderState = useSelector((state) => state.auth.orderbyuser[0].products);
-  console.log(orderState);
+  const orderState = useSelector((state) => state.auth?.orders[0]?.products);
   const data1 = [];
   for (let i = 0; i < orderState.length; i++) {
     data1.push({
       key: i + 1,
       name: orderState[i].product.title,
-      brand: orderState[i].product.brand,
       count: orderState[i].count,
       amount: orderState[i].product.price,
-      color: orderState[i].product.color,
       date: orderState[i].product.createdAt,
       action: (
         <>

@@ -10,7 +10,9 @@ const getProductCategories = async () => {
 };
 const createCategory = async (category) => {
   const response = await axiosToken.post(`${base_url}category/`, category);
-
+  if(response){
+    toast.success("Category Added")
+  }
   return response.data;
 };
 
