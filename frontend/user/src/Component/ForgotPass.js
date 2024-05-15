@@ -17,7 +17,7 @@ const ForgotPass = () => {
   const forgotSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/v1/auth/forget-password", {
+    const res = await fetch("http://localhost:8000/api/user/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

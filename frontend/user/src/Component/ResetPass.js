@@ -10,8 +10,6 @@ const ResetPass = () => {
   };
 
   const updateHandler = async () => {
-    const url = new URL(window.location.href);
-    const token = Object.fromEntries(url.searchParams.entries()).token;
     const res = await fetch("/api/v1/auth/reset-password", {
       method: "POST",
       headers: {
