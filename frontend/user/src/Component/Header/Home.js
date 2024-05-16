@@ -6,12 +6,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../Redux/Slices/itemSlice";
 import { useNavigate } from "react-router";
 import Loader from "../Loader/Loading";
+import PriceSlider from "./slider";
 
 const Home = () => {
   const navigate = useNavigate();
   const { products } = useSelector((state) => state.item);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const handlePriceChange = (range) => {
+    const [min, max] = range;
+    const filtered = products.filter(
+      (product) => product.price >= min && product.price <= max
+    );
+    setFilteredProducts(filtered);
+  };
 
   useEffect(() => {
     dispatch(getProducts());
@@ -40,13 +51,15 @@ const Home = () => {
           </div>
         </div>
         {loading ? (
-          <Loader/>
+          <Loader />
         ) : (
           <div className="lg:mx-8 mx-4 flex flex-col mt-10 gap-4">
             <h1 className="font text-white text-3xl">Our Exclusive Pics</h1>
+            <h1>Product List</h1>
+            <PriceSlider min={0} max={1000} onPriceChange={handlePriceChange} />
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center my-4">
-              {products &&
-                products.slice(0, 6).map((product) => (
+              {filteredProducts &&
+                filteredProducts.slice(0, 6).map((product) => (
                   <div key={product._id}>
                     <ProductCard product={product} image={product.images[0]} />
                   </div>

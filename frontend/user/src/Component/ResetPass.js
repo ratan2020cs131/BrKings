@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ResetPass = () => {
+  const url = new URL(window.location.href);
+  const token = Object.fromEntries(url.searchParams.entries()).token;
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
 
@@ -10,8 +12,8 @@ const ResetPass = () => {
   };
 
   const updateHandler = async () => {
-    const res = await fetch("/api/v1/auth/reset-password", {
-      method: "POST",
+    const res = await fetch("/api/user/update-password", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -49,7 +51,7 @@ const ResetPass = () => {
               >
                 New Password
                 <input
-                  type="text"
+                  type="password"
                   style={{ borderBottom: " 3px solid #fff" }}
                   placeholder="Enter Password"
                   value={password}

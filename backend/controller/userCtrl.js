@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
-const hashPassword = require("../helpers/authHelper");
+const {hashPassword} = require("../helpers/authHelper");
 
 
 
@@ -324,6 +324,7 @@ const updatePassword = async (req, res) => {
     const tokenData = await User.findOne({ token });
     if (tokenData) {
       const password = req.body.password;
+      // const hashedNewPassword = await bcrypt.hash(newPassword, 10);
       const newPassword = await hashPassword(password);
       const userData = await User.findByIdAndUpdate(
         { _id: tokenData._id },
