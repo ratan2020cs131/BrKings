@@ -1,10 +1,9 @@
-import axios from "axios";
-import {Axios} from "../../utils/axiosconfig";
+import { Axios } from "../../utils/axiosconfig";
 import { base_url } from "../../utils/baseUrl";
 import { toast } from "react-toastify";
 
 const login = async (user) => {
-  const response = await axios.post(`${base_url}user/login`, user);
+  const response = await Axios.post(`/user/login`, user);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
     toast.success("Login Success");
@@ -13,7 +12,7 @@ const login = async (user) => {
 };
 
 const signin = async (user) => {
-  const response = await axios.post(`${base_url}user/register`, user);
+  const response = await Axios.post(`/user/register`, user);
   if (response.data) {
     toast.success("User Register Successfully");
   }
@@ -22,7 +21,7 @@ const signin = async (user) => {
 
 const logout = async () => {
   try {
-    const response = await Axios.get(`${base_url}user/logout`);
+    const response = await Axios.get(`/user/logout`);
     window.localStorage.clear("user");
     console.log("status", response.status);
 
@@ -31,27 +30,11 @@ const logout = async () => {
     console.log("Logout Error: ", err);
   }
 };
-// const getOrders = async () => {
-//   const response = await axios.get(`${base_url}user/getallorders`, config);
-
-//   return response.data;
-// };
-// const getOrder = async (id) => {
-//   const response = await axios.post(
-//     `${base_url}user/getorderbyuser/${id}`,
-//     "",
-//     config
-//   );
-
-//   return response.data;
-// };
 
 const authService = {
   login,
   logout,
   signin,
-  // getOrders,
-  // getOrder,
 };
 
 export default authService;

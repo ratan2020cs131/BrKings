@@ -13,6 +13,7 @@ import Loader from "../Loader/Loading";
 
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
+import TextInput from "../../common/TextInput";
 
 const Login = () => {
   const auth = useSelector(selectAuthUser);
@@ -61,28 +62,24 @@ const Login = () => {
             <div className="card mt-2 flex-row">
               <div className="mt-3 sm:mx-auto  sm:max-w-sm  cred">
                 <form className="loginForm">
-                  <label for="email" className="loginInput">
-                    Email
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      value={values.email}
-                      onChange={loginInputs}
-                      id="email"
-                      name="email"
-                    />
-                  </label>
-                  <label for="password" className="loginInput">
-                    Password
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      value={values.password}
-                      onChange={loginInputs}
-                      id="password"
-                      name="password"
-                    />
-                  </label>
+
+                  <TextInput
+                    label="Email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter Email"
+                    value={values.email}
+                    onChange={loginInputs}
+                  />
+                  <TextInput
+                    label="Password"
+                    name="password"
+                    type="password"
+                    placeholder="Enter Password"
+                    value={values.password}
+                    onChange={loginInputs}
+                  />
+
                   <button
                     type="submit"
                     id="submit"
@@ -91,6 +88,7 @@ const Login = () => {
                   >
                     Login
                   </button>
+                  
                   <a
                     className="mt-4 text-center text-sm cursor-pointer text-gray-900"
                     onClick={() => {

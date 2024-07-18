@@ -4,7 +4,7 @@ import "./Home.scss";
 import ProductCard from "../ProductCard/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../Redux/Slices/itemSlice";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loading";
 import PriceSlider from "./slider";
 
