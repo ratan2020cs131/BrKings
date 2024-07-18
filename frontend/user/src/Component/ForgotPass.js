@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { loginBox } from "../Redux/Slices/authSlice";
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
