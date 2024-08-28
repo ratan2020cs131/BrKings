@@ -9,7 +9,7 @@ import {
 import Logo from "../../Images/BrownieKing.png";
 import Cookie from "../../Images/brauni-ai (1) 1.png";
 import { Link, useNavigate } from "react-router-dom";
-import Loader from "../Loader/Loading";
+import Loader from "../../common/Loader/Loading";
 
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Login.css";
