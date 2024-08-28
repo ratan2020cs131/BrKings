@@ -97,7 +97,7 @@ const Cart = () => {
               Your Shopping cart lives to serve. Give it purpose - fill it with
               sweets, Brownies, Cakes etc. and make it happy.
             </p>
-            <Link to="/shop">
+            <Link to="/">
               <button className="bg-primeColor rounded-md cursor-pointer hover:bg-orange-600 active:bg-orange-900 px-8 py-2 font-titleFont font-semibold text-lg text-orange-300 hover:text-black duration-300">
                 Continue Shopping
               </button>

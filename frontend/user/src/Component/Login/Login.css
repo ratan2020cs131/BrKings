@@ -70,6 +70,10 @@
   border-bottom: 3px solid rgb(8, 8, 8);
 }
 
+.loginInput input:focus{
+  border: 2px solid rgb(8, 8, 8);
+}
+
 .loginForm {
   display: flex;
   flex-direction: column;

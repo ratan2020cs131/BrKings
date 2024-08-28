@@ -13,7 +13,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const find = state.cart.findIndex((item) => item._id === action.payload._id);
-      if (find != -1) {
+      if (find !== -1) {
         state.cart[find].quantity += 1;
       } else {
         // Always ensure you're pushing an object with a quantity property

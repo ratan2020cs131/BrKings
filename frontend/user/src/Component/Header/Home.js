@@ -58,8 +58,8 @@ const Home = () => {
             <h1>Product List</h1>
             <PriceSlider min={0} max={1000} onPriceChange={handlePriceChange} />
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center my-4">
-              {filteredProducts &&
-                filteredProducts.slice(0, 6).map((product) => (
+              {products &&
+                products.slice(0, 6).map((product) => (
                   <div key={product._id}>
                     <ProductCard product={product} image={product.images[0]} />
                   </div>

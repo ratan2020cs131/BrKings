@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Product.css";
 import Experience from "../../Images/Rectangle 4291.png";
+import CustomButton from "../../common/ProdCardbutton";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,9 +15,17 @@ import { addToCart } from "../../Redux/Slices/Cart";
 const ProductPage = () => {
   const dispatch = useDispatch();
   const [selectedButton, setSelectedButton] = useState(null);
+  const quantities = [4, 8, 16]; // Define the quantities here
+  const [weight, setWeight] = useState(0.5); // Initial weight set to 0.5 kg as an example
 
-  const handleButtonClick = (buttonName) => {
-    setSelectedButton(buttonName);
+  const handleButtonClick = (quantity) => {
+    setSelectedButton(quantity);
+    // Handle further actions for quantity selection
+  };
+
+  const handleWeightChange = (event) => {
+    setWeight(parseFloat(event.target.value));
+    // Handle further actions for weight change
   };
 
   let params = useParams();
@@ -42,9 +51,9 @@ const ProductPage = () => {
   //   }
   // });
 
-  const handleAddToCart = () =>{
-    dispatch(addToCart(product))
-  }
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+  };
 
   return (
     <>
@@ -98,71 +107,34 @@ const ProductPage = () => {
                   <span className="font my-2 text-white">Size:</span>
 
                   {product?.category === "Jar-cake" ? (
-                    <div>
+                    <div className="flex flex-col space-y-2">
                       <p className="text-white">Weight in Kg</p>
+                      <select
+                        value={weight}
+                        onChange={handleWeightChange}
+                        className="p-2 border rounded-md text-lg bg-transparent text-white"
+                      >
+                        {[0.5, 1, 1.5, 2].map((wt) => (
+                          <option key={wt} value={wt}>
+                            {wt} Kg
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-2 justify-items-streach px-3 lg:max-w-lg gap-4 h-48">
-                      <button
-                        className={`bg-transparent 
-                                    font-semibold py-2 
-                                    lg:px-4 border 
-                                    leading-6 shadow-sm 
-                                    hover:border-transparent transform transition duration-300 hover:scale-110
-                                    hover:bg-orange-600 
-                                    text-xl lg:text-2xl  
-                                    hover:text-black 
-                                    rounded pieces ${
-                                      selectedButton === "button1"
-                                        ? "selected"
-                                        : ""
-                                    }`}
-                        onClick={() => handleButtonClick("button1")}
-                      >
-                        4 Brownies
-                      </button>
-                      <button
-                        className={`bg-transparent 
-                                    font-semibold py-2 
-                                    lg:px-4 border 
-                                    leading-6 shadow-sm 
-                                    hover:border-transparent transform transition duration-300 hover:scale-110
-                                    hover:bg-orange-600                                     
-                                    text-xl lg:text-2xl  
-                                    hover:text-black 
-                                    rounded pieces ${
-                                      selectedButton === "button2"
-                                        ? "selected"
-                                        : ""
-                                    } `}
-                        onClick={() => handleButtonClick("button2")}
-                      >
-                        8 Brownies
-                      </button>
-                      <button
-                        className={`bg-transparent 
-                                    font-semibold py-2 
-                                    lg:px-4 border 
-                                    leading-6 shadow-sm 
-                                    hover:border-transparent transform transition duration-300 hover:scale-110
-                                    hover:bg-orange-600 
-                                    text-xl lg:text-2xl  
-                                    hover:text-black 
-                                    rounded pieces ${
-                                      selectedButton === "button3"
-                                        ? "selected"
-                                        : ""
-                                    } `}
-                        onClick={() => handleButtonClick("button3")}
-                      >
-                        16 Brownies
-                      </button>
+                    <div className="grid grid-cols-2 justify-items-stretch px-3 lg:max-w-lg gap-4 h-48">
+                      {quantities.map((quantity, index) => (
+                        <CustomButton
+                          key={index}
+                          label={`${quantity} Brownies`}
+                          onClick={() => handleButtonClick(quantity)}
+                          isSelected={selectedButton === quantity}
+                        />
+                      ))}
                     </div>
                   )}
-
                   <button
-                    className="mt-3 rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/2
-              transform transition duration-300 hover:scale-110"
+                    className="mt-3 rounded-md bg-amber-600 px-2 py-1.5 lg:mx-6 text-xl font-semibold leading-10 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-1/2transform transition duration-300 hover:scale-110"
                     onClick={handleAddToCart}
                   >
                     Add to Cart
