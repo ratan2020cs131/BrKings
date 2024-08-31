@@ -82,7 +82,7 @@ const Navbar = () => {
                   <img src={Logo} alt="Brownie King" />
                   <Typography
                     variant="h6"
-                    noWrap
+                    nowrap="true"
                     component="a"
                     href="/"
                     sx={{
@@ -145,7 +145,7 @@ const Navbar = () => {
               </Box>
               <Typography
                 variant="h6"
-                Wrap
+                wrap="true"
                 component="a"
                 href=""
                 sx={{

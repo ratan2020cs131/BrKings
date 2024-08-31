@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
-import "./Product.css";
-import Experience from "../../Images/Rectangle 4291.png";
-import CustomButton from "../../common/ProdCardbutton";
-import ImageGallery from "../../common/ImageGallery";
+import React, { useEffect, useState } from "react";
+import { TbReceiptTax } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import FormatPrice from "../../Helper/FormatPrice";
+import Experience from "../../Images/Rectangle 4291.png";
+import { addToCart } from "../../Redux/Slices/Cart";
 import {
   getProductByIdAsync,
   selectProductById,
-  selectProductStatus,
   selectProductError,
+  selectProductStatus,
 } from "../../Redux/Slices/itemSlice";
+import ImageGallery from "../../common/ImageGallery";
+import Loader from "../../common/Loader/Loading";
+import CustomButton from "../../common/ProdCardbutton";
 import LikeProduct from "../ProductCard/LikeProduct";
-import { addToCart } from "../../Redux/Slices/Cart";
+import "./Product.css";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -48,12 +51,20 @@ const ProductPage = () => {
     }
   };
 
+  if (status === "loading") {
+    return (
+      <div className="bg-black">
+        <Loader />
+      </div>
+    ); // Show loading state
+  }
+
+  if (status === "idle" && error) {
+    return <div className="text-white">Error: {error}</div>; // Show error state
+  }
+
   return (
     <>
-      {/* Loading and Error handling */}
-      {status === "loading" && <p className="text-white">Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-
       {product && (
         <div className="flex flex-col justify-between bg-gray-950 lg:gap-8">
           <section>
@@ -66,8 +77,13 @@ const ProductPage = () => {
                     {product.title}
                   </h1>
                   <p className="text-semibold text-xl lg:text-2xl my-3 text-white font">
-                    ₹{product.price}
-                    <span className="block text-sm">Tax Included</span>
+                    <FormatPrice price={product?.price} />
+                    <p className=" text-base flex flex-row items-center">
+                      <span className="p-1.5">
+                        <TbReceiptTax />
+                      </span>
+                      Tax Included
+                    </p>
                   </p>
                   <p className="text-semibold text-white font text-sx lg:text-lg font">
                     Double Chocolate Delight With A Taste of Walnut Crunch is a
@@ -119,7 +135,7 @@ const ProductPage = () => {
           <section>
             <div className="flex border border-orange-500 my-4 mx-4 lg:mx-16 rounded-md flex-col lg:flex-row mt-4">
               <div className="rounded overflow-hidden max-w-sm">
-                <img src={Experience} alt="Image" className="w-full" />
+                <img src={Experience} alt="experience" className="w-full" />
               </div>
               <div className="bg-orange-500">
                 <div className="py-2 px-3">

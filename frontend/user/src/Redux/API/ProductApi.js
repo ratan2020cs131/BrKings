@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Axios} from "../../utils/axiosconfig";
+import { Axios } from "../../utils/axiosconfig";
 import { base_url } from "../../utils/baseUrl";
 
 const getProducts = async () => {
@@ -14,9 +14,16 @@ const getProduct = async (id) => {
   return response.data;
 };
 
+const getProductCategories = async () => {
+  const response = await axios.get(`${base_url}category/`);
+
+  return response.data;
+};
+
 const productApi = {
   getProducts,
   getProduct,
+  getProductCategories,
 };
 
 export default productApi;

@@ -12,7 +12,6 @@ export const getProducts = createAsyncThunk(
   }
 );
 
-
 export const getProductByIdAsync = createAsyncThunk(
   "product/get-product-by-id",
   async (id, thunkAPI) => {
@@ -24,11 +23,23 @@ export const getProductByIdAsync = createAsyncThunk(
   }
 );
 
+export const getCategories = createAsyncThunk(
+  "productCategory/get-categories",
+  async (thunkAPI) => {
+    try {
+      return await productApi.getProductCategories();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const itemSlice = createSlice({
   name: "items",
   initialState: {
     isLoading: false,
     products: [],
+    productCategories: [],
     error: null,
     selectedProduct: null,
     status: "idle",
@@ -60,9 +71,23 @@ const itemSlice = createSlice({
         state.error = null;
       })
       .addCase(getProductByIdAsync.rejected, (state, action) => {
-        state.status = "idle";
+        state.status = "error";
         state.selectedProduct = null;
         state.error = action.error.message; // Capture the error message
+      })
+      .addCase(getCategories.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getCategories.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.productCategories = action.payload;
+        state.error = null;
+      })
+      .addCase(getCategories.rejected, (state, action) => {
+        state.status = "error";
+        state.productCategories = null;
+        state.error = action.error.message;
       });
   },
 });
