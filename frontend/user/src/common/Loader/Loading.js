@@ -4,7 +4,7 @@ import "./Loading.css";
 const Loading = () => {
   return (
     <>
-      <div className="loading_body"></div>
+      {/* From Uiverse.io by PhyoTP */}
       <div className="socket">
         <div className="gel center-gel">
           <div className="hex-brick h1"></div>

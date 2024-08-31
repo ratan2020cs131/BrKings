@@ -1,22 +1,16 @@
-.loading_body {
-  width: 99.4vw;
-  height: 100vh;
-}
+/* From Uiverse.io by PhyoTP */ 
 .socket {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 200px;
   height: 200px;
   position: absolute;
   left: 50%;
   margin-left: -100px;
   top: 50%;
-  margin-top: -200px;
+  margin-top: -100px;
 }
 
 .hex-brick {
-  background: #d2cec8;
+  background: #ff5e0e;
   width: 30px;
   height: 17px;
   position: absolute;
@@ -330,14 +324,14 @@
 
 @keyframes fade00 {
   0% {
-    background: #b9b7b0;
+    background: #ff8c00;
   }
 
   50% {
-    background: #d2cec8;
+    background: #ff5e0e;
   }
 
   100% {
-    background: #d2cec8;
+    background: #ff8c00;
   }
 }

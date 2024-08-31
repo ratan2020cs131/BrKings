@@ -1,22 +1,22 @@
+import { useFormik } from "formik";
 import { React, useEffect, useState } from "react";
-import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
-import {useLocation, useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import CustomInput from "../components/CustomInput";
 import { getCategories } from "../features/pcategory/pcategorySlice";
 // import { Select } from "antd";
 import Dropzone from "react-dropzone";
-import { delImg, uploadImg } from "../features/upload/uploadSlice";
 import {
   createProducts,
-  resetState,
   getAProduct,
+  resetState,
   updateAProduct,
 } from "../features/product/productSlice";
+import { delImg, uploadImg } from "../features/upload/uploadSlice";
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
   description: yup.string().required("Description is Required"),
@@ -32,22 +32,22 @@ const Addproduct = () => {
   const getPId = location.pathname.split("/")[3];
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
-   const catState = useSelector((state) => state.pCategory.pCategories);
-   const imgState = useSelector((state) => state.upload.images);
-   const newProduct = useSelector((state) => state.product);
-   const {
-     isSuccess,
-     isError,
-     isLoading,
-     createdProduct,
-     savedTitle,
-     savedDescription,
-     savedPrice,
-     savedCategory,
-     savedTags,
-     savedQuantity,
-     updatedProduct,
-   } = newProduct;
+  const catState = useSelector((state) => state.pCategory.pCategories);
+  const imgState = useSelector((state) => state.upload.images);
+  const newProduct = useSelector((state) => state.product);
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    createdProduct,
+    savedTitle,
+    savedDescription,
+    savedPrice,
+    savedCategory,
+    savedTags,
+    savedQuantity,
+    updatedProduct,
+  } = newProduct;
 
   useEffect(() => {
     dispatch(getCategories());
@@ -61,7 +61,6 @@ const Addproduct = () => {
     }
   }, [getPId]);
 
- 
   useEffect(() => {
     if (isSuccess && createdProduct) {
       toast.success("Product Added Successfullly!");
@@ -74,7 +73,7 @@ const Addproduct = () => {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
-  
+
   const img = [];
 
   useEffect(() => {
@@ -104,20 +103,19 @@ const Addproduct = () => {
       formik.values.images = img;
       // console.log("values",values);
 
-
       if (getPId !== undefined) {
         const updateData = {
           id: getPId,
           pData: values,
         };
-        console.log("aaajaaaa",getPId,"data",updateData);
+        console.log("aaajaaaa", getPId, "data", updateData);
         dispatch(updateAProduct(updateData));
         dispatch(resetState());
       } else {
-        console.log("adprdcts",values)
+        console.log("adprdcts", values);
         dispatch(createProducts(values));
         formik.resetForm();
-        console.log("values",values)
+        console.log("values", values);
         setTimeout(() => {
           dispatch(resetState());
         }, 3000);
@@ -125,7 +123,6 @@ const Addproduct = () => {
     },
   });
 
-  
   return (
     <div>
       <h3 className="mb-4 title">
@@ -169,7 +166,7 @@ const Addproduct = () => {
           <div className="error">
             {formik.touched.price && formik.errors.price}
           </div>
-          
+
           <select
             name="category"
             onChange={formik.handleChange("category")}

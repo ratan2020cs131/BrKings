@@ -25,7 +25,6 @@ const Routing = () => {
         <Route path="/forgotPass" element={<ForgotPass />} />
         <Route path="/reset-password" element={<ResetPass />} />
         <Route path="/Product/:id" element={<ProductPage />} />
-        <Route path="/brownies/Product/:id" element={<ProductPage />} />
       </Routes>
     </>
   );

@@ -1,44 +1,42 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../Redux/Slices/Cart";
+import { NavLink } from "react-router-dom";
+import FormatPrice from "../../Helper/FormatPrice";
 import Veg from "../../Images/VEG.png";
-import Brownie from "../../Images/Rectangle 4273.png";
 
-const ProductCard = ({ product,image }) => {
-    const dispatch = useDispatch();
-
-    const handleAddToCart = () => {
-        dispatch(addToCart(product));
-    };
-
-    return (
-        <>
-            <Link to={`product/${product._id}`}>
-                <div className='py-2 px-2 my-2 border-orange-950/[5] border-4 rounded-lg max-w-sm transform transition duration-300 hover:scale-110'>
-                    <div className=' rounded overflow-hidden'>
-                        <img src={image?.url} alt='image' className='w-full aspect-square rounded-md cursor-pointer'/>
-                    </div>
-                    <div className='font2 text-white flex flex-col lg:flex-row max-w-sm lg:mx-2 my-4 gap-1'>
-                        <div className=' gap-1 lg:w-2/3 '>
-                            <h1>{product.title}</h1>
-                            <scan>₹{product?.price}</scan>
-                        </div>
-                        <div className='flex flex-col justify-center lg:w-1/3 gap-3'>
-                            <div className='flex justify-center items-center flex-col'>
-
-                                <h1 className='flex flex-row gap-2 justify-center items-center'>Eggless <img src={Veg} alt='Veg' /></h1>
-                            </div>
-                            <button className="bg-orange-600 tracking-widest hover:bg-orange-500  text-white font-semibold px-4 py-1 md:tracking-normal rounded-xl text-sm overflow-hidden justify-center flex  whitespace-nowrap "
-                                onClick={handleAddToCart}>
-                                Add To Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </Link>
-        </>
-    );
+const ProductCard = ({ product, image }) => {
+  return (
+    <>
+      <NavLink to={`/product/${product._id}`}>
+        <div className="py-2 px-2 my-1 overflow-hidden border-black bg-black border-4 rounded-lg max-w-xs transform transition duration-300 hover:scale-110">
+          {/* Conditionally render the "Popular" tag */}
+          {product.tags && (
+            <div class="absolute transform rotate-45 bg-red-600 text-center text-white font-semibold py-1 right-[-52px] top-[15px] w-[165px]">
+              {product.tags}
+            </div>
+          )}
+          <div className=" rounded overflow-hidden">
+            <img
+              src={image?.url}
+              alt="Brownie"
+              className="w-full aspect-square rounded-md cursor-pointer"
+            />
+          </div>
+          <div className="font2 text-white flex flex-col max-w-xs lg:mx-2 h-16 gap-1 bg-zinc-950 transform translate-y-0 transition duration-300 hover:-translate-y-5 hover:scale-x-110">
+            <h1 className="p-1 font-extrabold">{product.title}</h1>
+            <div className="flex justify-between">
+              <span>
+                <FormatPrice price={product?.price} />
+              </span>
+              <p className="flex gap-1">
+                <img className=" max-w-5" src={Veg} alt="Veg" />
+                Eggless
+              </p>
+            </div>
+          </div>
+        </div>
+      </NavLink>
+    </>
+  );
 };
 
 export default ProductCard;

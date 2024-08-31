@@ -1,5 +1,5 @@
 import React from 'react'
-import {loginBox, selectAuthUser, logout } from '../../Redux/Slices/authSlice';
+import {loginBox, selectAuthUser, logout } from '../../../Redux/Slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
